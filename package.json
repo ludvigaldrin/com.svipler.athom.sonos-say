@@ -1,0 +1,14 @@
+{
+  "name": "com.svipler.athom.sonos-say",
+  "version": "1.0.0",
+  "description": "Let's you broadcast text to your Sonos system",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.85.0"
+  }
+}

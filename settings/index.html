@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+
+<head>
+
+    <!-- The '/homey.js' script must be included in your settings view to work -->
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+
+</head>
+
+<body>
+
+    <h1>Sonos Say</h1>
+    <p>
+        To make use of Sonos Say you need o install <a href="https://github.com/jishi/node-sonos-http-api">node-sonos-http-api</a> on a separate computer. Recommended use is a Raspberry PI.
+        You then have to point out the URL and language setting here on this setting page. When you have everything setup you just add a action step with your text and your good to go.
+    </p>
+
+    <fieldset>
+        <legend>Settings</legend>
+
+        <div class="field row">
+            <label for="sonoshttp">Sonos HTTP Api (http://URL:5005/)</label>
+            <br/>
+            <input id="sonoshttp" type="text" value="" />
+        </div>
+        <div class="field row">
+            <label for="language">Language for voice (en-US)</label>
+            </br>
+            <input id="language" value="en-US" />
+        </div>
+        <div class="field row">
+                <label for="volume">Volume (1-100)</label>
+                </br>
+                <input id="volume" value="40" />
+            </div>
+
+    </fieldset>
+
+    <button id="save" class="right">Save changes</button>
+
+    <script type="text/javascript">
+
+
+        // a method named 'onHomeyReady' must be present in your code
+        function onHomeyReady(Homey) {
+
+            // Tell Homey we're ready to be displayed
+            Homey.ready();
+
+            var sonoshttpElement = document.getElementById('sonoshttp');
+            var languageElement = document.getElementById('language');
+            var volumeElement = document.getElementById('volume');
+
+            var saveElement = document.getElementById('save');
+
+            Homey.get('sonoshttp', function (err, sonoshttp) {
+                if (err) return Homey.alert(err);
+                sonoshttpElement.value = sonoshttp;
+            });
+
+            Homey.get('language', function (err, language) {
+                if (err) return Homey.alert(err);
+                languageElement.value = language;
+            });
+
+             Homey.get('volume', function (err, volume) {
+                if (err) return Homey.alert(err);
+                volumeElement.value = volume;
+            });
+
+            saveElement.addEventListener('click', function (e) {
+
+                Homey.set('sonoshttp', sonoshttpElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+                Homey.set('language', languageElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+                Homey.set('volume', volumeElement.value, function (err) {
+                    if (err) return Homey.alert(err);
+                });
+
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
