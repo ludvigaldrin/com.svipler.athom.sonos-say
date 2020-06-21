@@ -1,3 +1,8 @@
+# This repo is no longer maintained!
+Please check out this excellent fork for version 2.0
+https://github.com/MadMonkey87/com.svipler.athom.sonos-say
+
+
 # Sonos Say
 
 Let's you broadcast text to your Sonos system
