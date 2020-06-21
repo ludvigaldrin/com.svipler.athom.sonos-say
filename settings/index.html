@@ -2,89 +2,75 @@
 <html>
 
 <head>
-
-    <!-- The '/homey.js' script must be included in your settings view to work -->
     <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
-
+    <link rel="stylesheet" href="css/bootstrap.min.css">
 </head>
 
 <body>
 
-    <h1>Sonos Say</h1>
+    <h1>Connection Settings</h1>
     <p>
         To make use of Sonos Say you need o install <a href="https://github.com/jishi/node-sonos-http-api">node-sonos-http-api</a> on a separate computer. Recommended use is a Raspberry PI.
         You then have to point out the URL and language setting here on this setting page. When you have everything setup you just add a action step with your text and your good to go.
     </p>
 
     <fieldset>
-        <legend>Settings</legend>
-
-        <div class="field row">
-            <label for="sonoshttp">Sonos HTTP Api (http://URL:5005/)</label>
-            <br/>
-            <input id="sonoshttp" type="text" value="" />
-        </div>
-        <div class="field row">
-            <label for="language">Language for voice (en-US)</label>
-            </br>
-            <input id="language" value="en-US" />
-        </div>
-        <div class="field row">
-                <label for="volume">Volume (1-100)</label>
-                </br>
-                <input id="volume" value="40" />
+        <div class="container">
+            <div class="row col-9">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label>IP</label>
+                        <input type="text" class="form-control" id="host" placeholder="xxx.xxx.xxx.xxx">
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <label>Port</label>
+                        <input type="text" class="form-control" id="port" placeholder="5005">
+                    </div>
+                </div>
+                <div class="row col-9">
+                    <div class="col-sm mt-4">
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" style="height: 35" id="save">Save</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+        </div>
     </fieldset>
 
-    <button id="save" class="right">Save changes</button>
-
     <script type="text/javascript">
-
-
-        // a method named 'onHomeyReady' must be present in your code
         function onHomeyReady(Homey) {
-
-            // Tell Homey we're ready to be displayed
             Homey.ready();
 
-            var sonoshttpElement = document.getElementById('sonoshttp');
-            var languageElement = document.getElementById('language');
-            var volumeElement = document.getElementById('volume');
-
+            var hostElement = document.getElementById('host');
+            var portElement = document.getElementById('port');
             var saveElement = document.getElementById('save');
 
-            Homey.get('sonoshttp', function (err, sonoshttp) {
+            Homey.get('host', function (err, host) {
                 if (err) return Homey.alert(err);
-                sonoshttpElement.value = sonoshttp;
+                hostElement.value = host;
             });
 
-            Homey.get('language', function (err, language) {
+            Homey.get('port', function (err, port) {
                 if (err) return Homey.alert(err);
-                languageElement.value = language;
-            });
-
-             Homey.get('volume', function (err, volume) {
-                if (err) return Homey.alert(err);
-                volumeElement.value = volume;
+                portElement.value = port;
             });
 
             saveElement.addEventListener('click', function (e) {
 
-                Homey.set('sonoshttp', sonoshttpElement.value, function (err) {
-                    if (err) return Homey.alert(err);
-                });
-                Homey.set('language', languageElement.value, function (err) {
+                Homey.set('host', hostElement.value, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
-                Homey.set('volume', volumeElement.value, function (err) {
+                Homey.set('port', portElement.value, function (err) {
                     if (err) return Homey.alert(err);
                 });
 
+                return Homey.alert('Done');
             });
         }
-
     </script>
 
 </body>

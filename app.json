@@ -1,17 +1,27 @@
 {
   "id": "com.svipler.athom.sonos-say",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
     "en": "Sonos Say"
   },
   "description": {
-    "en": "Let's you broadcast text to your Sonos system"
+    "en": "Let's you broadcast text to your Sonos system and provides some other features the official app does not"
   },
   "category": [
     "tools"
   ],
+  "contributors": {
+    "developers": [
+      {
+        "name": "MadMonkey87"
+      },
+      {
+        "name": "svipler"
+      }
+    ]
+  },
   "permissions": [],
   "images": {
     "large": "/assets/images/large.png",
@@ -22,17 +32,338 @@
     "email": "info@svipler.com"
   },
   "flow": {
-       "actions": [
-        {
-            "id": "action_sonos_to_say",
-            "title": {
-                "en": "Text to make Sonos Say"
+    "actions": [
+      {
+        "id": "action_sonos_lock_volume",
+        "title": {
+          "en": "Lock all volumes"
+        },
+        "args": []
+      },
+      {
+        "id": "action_sonos_unlock_volume",
+        "title": {
+          "en": "Unlock all volumes"
+        },
+        "args": []
+      },
+      {
+        "id": "action_sonos_set_repeat_mode",
+        "title": {
+          "en": "Set repeat mode"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          },
+          {
+            "type": "dropdown",
+            "name": "repeatmode",
+            "values": [
+              {
+                "id": "none",
+                "label": {
+                  "en": "Disabled"
+                }
+              },
+              {
+                "id": "all",
+                "label": {
+                  "en": "Repeat All"
+                }
+              },
+              {
+                "id": "one",
+                "label": {
+                  "en": "Repeat One"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_set_sleepmode",
+        "title": {
+          "en": "Set sleepmode"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          },
+          {
+            "type": "number",
+            "name": "timeout",
+            "placeholder": {
+              "en": "Duration in seconds or 0 to disable"
             },
-            "args": [{
-				"name": "sonossay",
-				"type": "text"
-			}]
-        }
-    	]
+            "min": 0,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_enable_shuffle",
+        "title": {
+          "en": "Enable shuffle"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_disable_shuffle",
+        "title": {
+          "en": "Disable shuffle"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_enable_crossfade",
+        "title": {
+          "en": "Enable crossfade"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_disable_crossfade",
+        "title": {
+          "en": "Disable crossfade"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_say",
+        "title": {
+          "en": "Text to Speech"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "placeholder": {
+              "en": "volume"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "%",
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          },
+          {
+            "type": "dropdown",
+            "name": "language",
+            "values": [
+              {
+                "id": "ca-es",
+                "label": {
+                  "en": "Catalan"
+                }
+              },
+              {
+                "id": "zh-cn",
+                "label": {
+                  "en": "Chinese (China)"
+                }
+              },
+              {
+                "id": "zh-hk",
+                "label": {
+                  "en": "Chinese (Hong Kong)"
+                }
+              },
+              {
+                "id": "zh-tw",
+                "label": {
+                  "en": "Chinese (Taiwan)"
+                }
+              },
+              {
+                "id": "da-dk",
+                "label": {
+                  "en": "Danish"
+                }
+              },
+              {
+                "id": "nl-nl",
+                "label": {
+                  "en": "Dutch"
+                }
+              },
+              {
+                "id": "en-au",
+                "label": {
+                  "en": "English (Australia)"
+                }
+              },
+              {
+                "id": "en-ca",
+                "label": {
+                  "en": "English (Canada)"
+                }
+              },
+              {
+                "id": "en-gb",
+                "label": {
+                  "en": "English (Great Britain)"
+                }
+              },
+              {
+                "id": "en-in",
+                "label": {
+                  "en": "English (India)"
+                }
+              },
+              {
+                "id": "en-us",
+                "label": {
+                  "en": "English (United States)"
+                }
+              },
+              {
+                "id": "fi-fi",
+                "label": {
+                  "en": "Finnish"
+                }
+              },
+              {
+                "id": "fr-ca",
+                "label": {
+                  "en": "French (Canada)"
+                }
+              },
+              {
+                "id": "fr-fr",
+                "label": {
+                  "en": "French (France)"
+                }
+              },
+              {
+                "id": "de-de",
+                "label": {
+                  "en": "German"
+                }
+              },
+              {
+                "id": "it-it",
+                "label": {
+                  "en": "Italian"
+                }
+              },
+              {
+                "id": "ja-jp",
+                "label": {
+                  "en": "Japanese"
+                }
+              },
+              {
+                "id": "ko-kr",
+                "label": {
+                  "en": "Korean"
+                }
+              },
+              {
+                "id": "nb-no",
+                "label": {
+                  "en": "Norwegian"
+                }
+              },
+              {
+                "id": "pl-pl",
+                "label": {
+                  "en": "Polish"
+                }
+              },
+              {
+                "id": "pt-br",
+                "label": {
+                  "en": "Portuguese (Brazil)"
+                }
+              },
+              {
+                "id": "pt-pt",
+                "label": {
+                  "en": "Portuguese (Portugal)"
+                }
+              },
+              {
+                "id": "ru-ru",
+                "label": {
+                  "en": "Russian"
+                }
+              },
+              {
+                "id": "es-mx",
+                "label": {
+                  "en": "Spanish (Mexico)"
+                }
+              },
+              {
+                "id": "es-es",
+                "label": {
+                  "en": "Spanish (Spain)"
+                }
+              },
+              {
+                "id": "sv-se",
+                "label": {
+                  "en": "Swedish (Sweden)"
+                }
+              }
+            ]
+          },
+          {
+            "name": "text",
+            "type": "text"
+          }
+        ]
+      }
+    ]
 	}
 }
