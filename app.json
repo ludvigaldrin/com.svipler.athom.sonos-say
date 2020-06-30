@@ -1,6 +1,6 @@
 {
   "id": "com.svipler.athom.sonos-say",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -18,7 +18,7 @@
         "name": "MadMonkey87"
       },
       {
-        "name": "svipler"
+        "name": "Ludvig Aldrin"
       }
     ]
   },
@@ -28,8 +28,8 @@
     "small": "/assets/images/small.png"
   },
   "author": {
-    "name": "Svipler AB",
-    "email": "info@svipler.com"
+    "name": "Ludvig Aldrin",
+    "email": "ludvig.aldrin@gmail.com"
   },
   "flow": {
     "actions": [
