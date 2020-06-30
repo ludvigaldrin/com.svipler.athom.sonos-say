@@ -1,4 +1,4 @@
-# This repo is no longer maintained!
+# Special thanks to MadMonkey87
 Please check out this excellent fork for version 2.0
 https://github.com/MadMonkey87/com.svipler.athom.sonos-say
 
