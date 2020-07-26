@@ -6,6 +6,9 @@ To make use of Sonos Say you need o install <a href="https://github.com/jishi/no
 
 You then have to point out the URL and language setting on the setting page. When you have everything setup you just add a action step with your text and your good to go.
 
+V2.0.1
+* small fixes
+
 V2.0.0
 * generally rebuilt
 * improved flow card that allows you to set the speaker, language and volume directly
