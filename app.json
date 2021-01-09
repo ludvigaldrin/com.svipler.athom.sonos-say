@@ -52,6 +52,9 @@
         "title": {
           "en": "Set repeat mode"
         },
+        "titleFormatted": {
+          "en": "Set repeat mode to [[repeatmode]] on [[speaker]]"
+        },
         "args": [
           {
             "type": "autocomplete",
@@ -91,6 +94,9 @@
         "title": {
           "en": "Set sleepmode"
         },
+        "titleFormatted": {
+          "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]"
+        },
         "args": [
           {
             "type": "autocomplete",
@@ -115,6 +121,9 @@
         "title": {
           "en": "Enable shuffle"
         },
+        "titleFormatted": {
+          "en": "Enable shuffle on [[speaker]]"
+        },
         "args": [
           {
             "type": "autocomplete",
@@ -129,6 +138,9 @@
         "id": "action_sonos_disable_shuffle",
         "title": {
           "en": "Disable shuffle"
+        },
+        "titleFormatted": {
+          "en": "Disable shuffle on [[speaker]]"
         },
         "args": [
           {
@@ -145,6 +157,9 @@
         "title": {
           "en": "Enable crossfade"
         },
+        "titleFormatted": {
+          "en": "Enable crossfade on [[speaker]]"
+        },
         "args": [
           {
             "type": "autocomplete",
@@ -159,6 +174,9 @@
         "id": "action_sonos_disable_crossfade",
         "title": {
           "en": "Disable crossfade"
+        },
+        "titleFormatted": {
+          "en": "Disable crossfade on [[speaker]]"
         },
         "args": [
           {
@@ -176,7 +194,7 @@
           "en": "Text to Speech"
         },
         "titleFormatted": {
-          "en": "On [[speaker]] @ [[volume]] in [[language]] say [[text]]"
+          "en": "Say [[text]] on [[speaker]], [[volume]] volume in [[language]]"
         },
         "args": [
           {
