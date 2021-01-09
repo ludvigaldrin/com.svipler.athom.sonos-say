@@ -175,6 +175,9 @@
         "title": {
           "en": "Text to Speech"
         },
+        "titleFormatted": {
+          "en": "On [[speaker]] @ [[volume]] in [[language]] say [[text]]"
+        },
         "args": [
           {
             "type": "autocomplete",
