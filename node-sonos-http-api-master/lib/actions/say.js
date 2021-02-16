@@ -34,8 +34,6 @@ function say(player, values) {
 
   return tryDownloadTTS(text, language)
     .then((result) => {
-      console.log('say url');
-      console.log( `http://${system.localEndpoint}:${port}${result.uri}`);
       return singlePlayerAnnouncement(player, `http://${system.localEndpoint}:${port}${result.uri}`, announceVolume, result.duration);
     });
 }

@@ -3,8 +3,7 @@ const path = require('path');
 const crypto = require('crypto');
 const fs = require('fs');
 const http = require('http');
-const tryDownloadTTS = require('../helpers/try-download-tts');
-const singlePlayerAnnouncement = require('../helpers/single-player-announcement');
+const allPlayerAnnouncement = require('../helpers/all-player-announcement');
 const settings = require('../../settings');
 
 let port;
@@ -30,7 +29,7 @@ function sayUrl(player, values) {
   //  .then((result) => {
   console.log('url');
   console.log(url);
-  return allPlayerAnnouncement(player.system,url, announceVolume, duration);//result.duration);
+  return allPlayerAnnouncement(player.system, url, announceVolume, duration);//result.duration);
   //  });
 }
 

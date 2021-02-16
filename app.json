@@ -416,12 +416,20 @@
           },
           {
             "name": "url",
-            "type": "text"
-          }          ,
+            "type": "text",
+            "placeholder": {
+              "en": "Url"
+            }
+          },
           {
             "name": "duration",
             "type": "number",
-            "step": 1
+            "min":0,
+            "max":10000000,
+            "step": 1,
+            "placeholder": {
+              "en": "Duration"
+            }
           }
         ]
       }

@@ -299,7 +299,7 @@ class SonosSay extends Homey.App {
 					return new Promise((resolve) => {
 						console.log('args');
 						console.log(args);
-						this.sayUrl(args.speaker.id, args.url, args.volume, (error, result) => {
+						this.sayUrl(args.speaker.id, args.url, args.volume, args.duration, (error, result) => {
 							if (error) {
 								return this.error(error);
 							}
@@ -341,13 +341,13 @@ class SonosSay extends Homey.App {
 		})
 	}
 
-	sayUrl(roomName, url, volume, callback){
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sayurl/${Buffer.from(url).toString('base64')}/${volume}`, (error, response) => {
+	sayUrl(roomName, url, volume, duration, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sayurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
 			callback(error, !!error ? null : JSON.parse(response))
 		})
 	}
-	sayAllUrl(url, volume, callback){
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/sayallurl/${Buffer.from(url).toString('base64')}/${volume}`, (error, response) => {
+	sayAllUrl(url, volume, duration, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/sayallurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
 			callback(error, !!error ? null : JSON.parse(response))
 		})
 	}
