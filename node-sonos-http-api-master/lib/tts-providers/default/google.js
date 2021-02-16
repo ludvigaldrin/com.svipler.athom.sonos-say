@@ -7,6 +7,7 @@ const fileDuration = require('../../helpers/file-duration');
 const settings = require('../../../settings');
 const logger = require('sonos-discovery/lib/helpers/logger');
 
+//Needs fixing for new module
 function google(phrase, language) {
   if (!language) {
     language = 'en';
