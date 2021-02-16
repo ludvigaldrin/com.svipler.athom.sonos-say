@@ -141,6 +141,10 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
     var defer = new Defer();
     if(relevantBackupPreset2) return system.applyPreset(relevantBackupPreset2).then(x=> { 
       defer.resolve() 
+
+      // connect each device from the "zone" again...
+
+      
       //delete relevantBackupPreset.uri;
       //r().then(()=>{defer.resolve(); });
       
