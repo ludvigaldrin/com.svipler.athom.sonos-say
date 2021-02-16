@@ -10,39 +10,33 @@ const settings = require('../../settings');
 let port;
 let system;
 
-function say(player, values) {
-  let text;
+function sayUrl(player, values) {
+  let url;
   try {
-    text = decodeURIComponent(values[0]);
+    console.log('values');
+    console.log(values);
+    url = Buffer.from(values[0], 'base64').toString('ascii');
   } catch (err) {
     if (err instanceof URIError) {
       err.message = `The encoded phrase ${values[0]} could not be URI decoded. Make sure your url encoded values (%xx) are within valid ranges. xx should be hexadecimal representations`;
     }
     return Promise.reject(err);
   }
-  let announceVolume;
-  let language;
+  let announceVolume = values.length>2 ? values[1] : 25;
+  let duration = values.length>2 ? values[2] : 5000;
 
-  if (/^\d+$/i.test(values[1])) {
-    // first parameter is volume
-    announceVolume = values[1];
-    // language = 'en-gb';
-  } else {
-    language = values[1];
-    announceVolume = values[2] || settings.announceVolume || 40;
-  }
-
-  return tryDownloadTTS(text, language)
-    .then((result) => {
-      console.log('say url');
-      console.log( `http://${system.localEndpoint}:${port}${result.uri}`);
-      return singlePlayerAnnouncement(player, `http://${system.localEndpoint}:${port}${result.uri}`, announceVolume, result.duration);
-    });
+  
+  //return tryDownloadTTS(text, language)
+  //  .then((result) => {
+  console.log('url');
+  console.log(url);
+  return singlePlayerAnnouncement(player,url, announceVolume, duration);//result.duration);
+  //  });
 }
 
 module.exports = function (api) {
   port = api.getPort();
-  api.registerAction('say', say);
+  api.registerAction('sayurl', sayUrl);
 
   system = api.discovery;
 }

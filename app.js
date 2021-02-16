@@ -24,8 +24,8 @@ class SonosSay extends Homey.App {
 	initializeServer() {
 		console.log('initializeServer');
 		var _server = server;
-		console.log('initializeServer server');
-		console.log(_server);
+		
+		
 	}
 
 
@@ -280,7 +280,54 @@ class SonosSay extends Homey.App {
 				});
 			});
 
-		}
+
+
+		let sayUrlAction = new Homey.FlowCardAction('action_sonos_say_url');
+		sayUrlAction
+			.register()
+			.registerRunListener(( args, state ) => {
+				// if(args.speaker.id === '-'){
+				// 	return new Promise((resolve) => {
+				// 		this.sayAll(args.url, args.volume, args.language, (error, result) => {
+				// 			if (error) {
+				// 				return this.error(error);
+				// 			}
+				// 			resolve(true);
+				// 		})
+				// 	});
+				// } else {
+					return new Promise((resolve) => {
+						console.log('args');
+						console.log(args);
+						this.sayUrl(args.speaker.id, args.url, args.volume, (error, result) => {
+							if (error) {
+								return this.error(error);
+							}
+							resolve(true);
+						})
+					});
+				//}
+			})
+			.getArgument('speaker')
+			.registerAutocompleteListener(( query, args ) => {
+				return new Promise((resolve) => {
+					this.getSpeakersList((error, speakers) => {
+						if (error) {
+							return this.error(error);
+						}
+						let result = [{ name: 'All Speakers', id: '-'}];
+						speakers.forEach(entry => {
+							const name = entry.coordinator.roomName;
+							result.push({name: name, id: name});
+						});
+						resolve(result);
+					})
+				});
+			});
+
+	}
+	
+
 
 	getSpeakersList(callback) {
 		http.get(`http://${Homey.app.host}:${Homey.app.port}/zones`, (error, response) => {
@@ -290,6 +337,17 @@ class SonosSay extends Homey.App {
 
 	say(roomName, text, volume, language, callback){
 		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/say/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
+
+	sayUrl(roomName, url, volume, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sayurl/${Buffer.from(url).toString('base64')}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
+	sayAllUrl(url, volume, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/sayallurl/${Buffer.from(url).toString('base64')}/${volume}`, (error, response) => {
 			callback(error, !!error ? null : JSON.parse(response))
 		})
 	}
