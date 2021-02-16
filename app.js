@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 const { http } = require('./nbhttp');
+const server = require('./node-sonos-http-api-master/server');
 
 class SonosSay extends Homey.App {
 
@@ -16,7 +17,17 @@ class SonosSay extends Homey.App {
 		}
 
 		this.initializeActions();
+
+		this.initializeServer();
 	}
+	
+	initializeServer() {
+		console.log('initializeServer');
+		var _server = server;
+		console.log('initializeServer server');
+		console.log(_server);
+	}
+
 
 	initializeActions() {
 
@@ -271,74 +282,74 @@ class SonosSay extends Homey.App {
 
 		}
 
-		getSpeakersList(callback) {
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/zones`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	getSpeakersList(callback) {
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/zones`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		say(roomName, text, volume, language, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/say/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	say(roomName, text, volume, language, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/say/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		sayAll(text, volume, language, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/sayall/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	sayAll(text, volume, language, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/sayall/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		lockVolume(callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/lockvolumes`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	lockVolume(callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/lockvolumes`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		unlockVolume(callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/unlockvolumes`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	unlockVolume(callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/unlockvolumes`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		setSleepMode(roomName, duration, callback){
-			if(duration <= 0){
-				duration = 'off';
-			}
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sleep/${duration}`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
+	setSleepMode(roomName, duration, callback){
+		if(duration <= 0){
+			duration = 'off';
 		}
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sleep/${duration}`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		setRepeatMode(roomName, repeatMode, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/repeat/${repeatMode}`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	setRepeatMode(roomName, repeatMode, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/repeat/${repeatMode}`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		enableShuffle(roomName, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/shuffle/on`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	enableShuffle(roomName, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/shuffle/on`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		disableShuffle(roomName, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/shuffle/off`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	disableShuffle(roomName, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/shuffle/off`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		enableCrossfade(roomName, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/crossfade/on`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	enableCrossfade(roomName, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/crossfade/on`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 
-		disableCrossfade(roomName, callback){
-			http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/crossfade/off`, (error, response) => {
-				callback(error, !!error ? null : JSON.parse(response))
-			})
-		}
+	disableCrossfade(roomName, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/crossfade/off`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
 }
 
 module.exports = SonosSay;
