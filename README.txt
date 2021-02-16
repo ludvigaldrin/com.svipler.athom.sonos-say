@@ -25,8 +25,8 @@ V1.0.0
 3. Install to Athom (athom app install)
 
 # Contributor
-Special thanks to XeroxQ how made most of Version 3
+Special thanks to Arie J. Godschalk who made Version 3 serverless
 https://github.com/XeroxQ
 
-Special thanks to MadMonkey87 how made most of Version 2
+Special thanks to MadMonkey87 who made most of Version 2
 https://github.com/MadMonkey87/
