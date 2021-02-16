@@ -422,11 +422,8 @@
             }
           },
           {
-            "name": "duration",
             "type": "number",
-            "min":0,
-            "max":10000000,
-            "step": 1,
+            "name": "durationAudio",            
             "placeholder": {
               "en": "Duration"
             }

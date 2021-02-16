@@ -286,27 +286,27 @@ class SonosSay extends Homey.App {
 		sayUrlAction
 			.register()
 			.registerRunListener(( args, state ) => {
-				// if(args.speaker.id === '-'){
-				// 	return new Promise((resolve) => {
-				// 		this.sayAll(args.url, args.volume, args.language, (error, result) => {
-				// 			if (error) {
-				// 				return this.error(error);
-				// 			}
-				// 			resolve(true);
-				// 		})
-				// 	});
-				// } else {
+				if(args.speaker.id === '-'){
 					return new Promise((resolve) => {
-						console.log('args');
-						console.log(args);
-						this.sayUrl(args.speaker.id, args.url, args.volume, args.duration, (error, result) => {
+						this.sayAllUrl(args.url, args.volume, args.durationAudio, (error, result) => {
 							if (error) {
 								return this.error(error);
 							}
 							resolve(true);
 						})
 					});
-				//}
+				} else {
+					return new Promise((resolve) => {
+						console.log('args');
+						console.log(args);
+						this.sayUrl(args.speaker.id, args.url, args.volume, args.durationAudio, (error, result) => {
+							if (error) {
+								return this.error(error);
+							}
+							resolve(true);
+						})
+					});
+				}
 			})
 			.getArgument('speaker')
 			.registerAutocompleteListener(( query, args ) => {
