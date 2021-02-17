@@ -38,6 +38,7 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
           repeat: 'none'
         };
       }
+      console.log('Think its coordinator, will find uri later - done');
     } else {
       
       console.log('Think its no coordinator');
@@ -95,9 +96,10 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
   logger.debug('backup presets array', backupPresets[player.roomName]);
 
   const prepareBackupPreset = () => {
-    if (backupPresets[player.roomName].length > 1) {
-      backupPresets[player.roomName].shift();
+    if (backupPresets[player.roomName].length > 1) {      
       logger.debug('more than 1 backup presets during prepare', backupPresets[player.roomName]);
+      backupPresets[player.roomName].shift();
+      logger.debug('more than 1 backup presets during prepare: remaining', backupPresets[player.roomName]);
       return Promise.resolve();
     }
 
@@ -144,9 +146,17 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
       
       const zone = system.zones.find(zone => zone.id === relevantBackupPreset.group);
       // connect each device from the "zone" again...
+      console.log('zone');
+      console.log(zone);
+      console.log('adding members again');
       if(zone) zone.members.forEach(member => {
+        console.log('member');
+        console.log(member);
         attachTo(member, player );
       });
+      
+      backupPresets[player.roomName].shift(relevantBackupPreset2);
+      backupPresets[player.roomName].shift(relevantBackupPreset);
       defer.resolve() ;
 
       function rinconUri(player) {
@@ -155,7 +165,7 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
       
       function attachTo(player, coordinator) {
         console.log('attachTo');
-        console.log(player);
+        //console.log(player);
         console.log(coordinator);
         return player.setAVTransport(rinconUri(coordinator));
       }
@@ -163,6 +173,8 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
     });
     else r().then(()=>{defer.resolve(); });
 
+    console.log('relevantBackupPreset');          
+    console.log(relevantBackupPreset);
     return defer.promise;
     function r() {
       console.log('r');
