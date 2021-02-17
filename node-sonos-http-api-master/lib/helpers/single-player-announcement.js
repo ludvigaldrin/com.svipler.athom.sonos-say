@@ -21,6 +21,7 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
     // This one is coordinator, you will need to rejoin
     // remember which group you were part of.
     const group = system.zones.find(zone => zone.coordinator.uuid === player.coordinator.uuid);
+    
     if (group.members.length > 1) {
       console.log('Think its coordinator, will find uri later');
       
@@ -114,8 +115,8 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
       console.log('relevantBackupPreset.group');
       const zone = system.zones.find(zone => zone.id === relevantBackupPreset.group);
       console.log('relevantBackupPreset.zone');
-      console.log(zone);
       if (zone) {
+          
           relevantBackupPreset.uri = `x-rincon:${zone.uuid}`;// + (relevantBackupPreset.spdif ? ':spdif' : '');
           console.log('relevantBackupPreset.uri');
           console.log(relevantBackupPreset.uri );
@@ -139,16 +140,27 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
     console.log('relevantBackupPreset 2e');          
     console.log(relevantBackupPreset2);
     var defer = new Defer();
-    if(relevantBackupPreset2) return system.applyPreset(relevantBackupPreset2).then(x=> { 
-      defer.resolve() 
-
+    if(relevantBackupPreset2) return system.applyPreset(relevantBackupPreset2).then(x=> {
+      
+      const zone = system.zones.find(zone => zone.id === relevantBackupPreset.group);
       // connect each device from the "zone" again...
+      if(zone) zone.members.forEach(member => {
+        attachTo(member, player );
+      });
+      defer.resolve() ;
 
+      function rinconUri(player) {
+        return `x-rincon:${player.uuid}`;
+      }
       
-      //delete relevantBackupPreset.uri;
-      //r().then(()=>{defer.resolve(); });
+      function attachTo(player, coordinator) {
+        console.log('attachTo');
+        console.log(player);
+        console.log(coordinator);
+        return player.setAVTransport(rinconUri(coordinator));
+      }
       
-    });//r().then(()=>{defer.resolve(); }); } );
+    });
     else r().then(()=>{defer.resolve(); });
 
     return defer.promise;
