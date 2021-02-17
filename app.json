@@ -390,6 +390,48 @@
             "type": "text"
           }
         ]
+      },
+      {
+        "id": "action_sonos_say_url",
+        "title": {
+          "en": "Text to Speech (url)"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers..."
+            }
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "placeholder": {
+              "en": "volume"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "%",
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          },
+          {
+            "name": "url",
+            "type": "text",
+            "placeholder": {
+              "en": "Url"
+            }
+          },
+          {
+            "type": "number",
+            "name": "durationAudio",            
+            "placeholder": {
+              "en": "Duration"
+            }
+          }
+        ]
       }
     ]
 	}
