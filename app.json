@@ -1,6 +1,6 @@
 {
   "id": "com.svipler.athom.sonos-say",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -15,13 +15,16 @@
   "contributors": {
     "developers": [
       {
-        "name": "MadMonkey87"
-      },
-      {
         "name": "Ludvig Aldrin"
       },
       {
+        "name": "MadMonkey87"
+      },
+      {
         "name": "Rune Moskvil Lyngås"
+      },
+      {
+        "name": "Arie J. Godschalk"
       }
     ]
   },
