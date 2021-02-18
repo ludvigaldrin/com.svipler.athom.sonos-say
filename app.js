@@ -26,69 +26,61 @@ class SonosSay extends Homey.App {
 
 
 	initializeActions() {
+		
+		var actionsCards = {};
+		for (let actionCardIndex = 0; actionCardIndex < this.manifest.flow.actions.length; actionCardIndex++) {
+			const actionCard = this.manifest.flow.actions[actionCardIndex];
+			var card = new Homey.FlowCardAction(actionCard.id);			
+			actionsCards[actionCard.id] = card;
+			card.register();
 
-		let lockVolumeAction = new Homey.FlowCardAction('action_sonos_lock_volume');
-		lockVolumeAction
-			.register()
-			.registerRunListener(( args, state ) => {
-				return new Promise((resolve) => {
-					this.lockVolume((error, result) => {
-						if (error) {
-							return this.error(error);
-						}
-						resolve(true);
-					})
-				});
-			});
-
-		let unlockVolumeAction = new Homey.FlowCardAction('action_sonos_unlock_volume');
-			unlockVolumeAction
-				.register()
-				.registerRunListener(( args, state ) => {
-					return new Promise((resolve) => {
-						this.unlockVolume((error, result) => {
-							if (error) {
-								return this.error(error);
-							}
-							resolve(true);
-						})
+			if(actionCard.args) {
+				if(actionCard.args.find(x=>x.name=='speaker' && x.type=='autocomplete')) card.getArgument('speaker').registerAutocompleteListener(( query, args ) => {
+						return new Promise((resolve) => {
+							this.getSpeakersList((error, speakers) => {
+								if (error) {
+									return this.error(error);
+								}
+								let result = [];
+								if(speakers) speakers.forEach(entry => {
+									const name = entry.coordinator.roomName;
+									result.push({name: name, id: name});
+								});
+								resolve(result);
+							})
+						});
 					});
-				});
+			}
+		}
 
-		let setSleepmodeAction = new Homey.FlowCardAction('action_sonos_set_sleepmode');
-		setSleepmodeAction
-			.register()
-			.registerRunListener(( args, state ) => {
-				return new Promise((resolve) => {
-					this.setSleepMode(args.speaker.id, args.timeout, (error, result) => {
-						if (error) {
-							return this.error(error);
-						}
-					resolve(true);
-				})
-			});
-		})
-		.getArgument('speaker')
-		.registerAutocompleteListener(( query, args ) => {
+		actionsCards['action_sonos_lock_volume'].registerRunListener(( args, state ) => {
 			return new Promise((resolve) => {
-				this.getSpeakersList((error, speakers) => {
-					if (error) {
-						return this.error(error);
-					}
-					let result = [];
-					speakers.forEach(entry => {
-						const name = entry.coordinator.roomName;
-						result.push({name: name, id: name});
-					});
-					resolve(result);
+				this.lockVolume((error, result) => {
+					if (error) return this.error(error);					
+					resolve(true);
 				})
 			});
 		});
 
-		let setRepeatMode = new Homey.FlowCardAction('action_sonos_set_repeat_mode');
-		setRepeatMode
-			.register()
-			.registerRunListener(( args, state ) => {
+		actionsCards['action_sonos_unlock_volume'].registerRunListener(( args, state ) => {
+			return new Promise((resolve) => {
+				this.unlockVolume((error, result) => {
+					if (error) return this.error(error);
+					resolve(true);
+				})
+			});
+		});
+
+		actionsCards['action_sonos_set_sleepmode'].registerRunListener(( args, state ) => {
+			return new Promise((resolve) => {
+				this.setSleepMode(args.speaker.id, args.timeout, (error, result) => {
+					if (error) return this.error(error);
+					resolve(true);
+				})
+			});
+		});
+
+		actionsCards['action_sonos_set_repeat_mode'].registerRunListener(( args, state ) => {
 				return new Promise((resolve) => {
 					this.setRepeatMode(args.speaker.id, args.repeatmode, (error, result) => {
 						if (error) {
@@ -97,28 +89,9 @@ class SonosSay extends Homey.App {
 					resolve(true);
 				})
 			});
-		})
-		.getArgument('speaker')
-		.registerAutocompleteListener(( query, args ) => {
-			return new Promise((resolve) => {
-				this.getSpeakersList((error, speakers) => {
-					if (error) {
-						return this.error(error);
-					}
-					let result = [];
-					speakers.forEach(entry => {
-						const name = entry.coordinator.roomName;
-						result.push({name: name, id: name});
-					});
-					resolve(result);
-				})
-			});
 		});
 
-		let enableShuffleAction = new Homey.FlowCardAction('action_sonos_enable_shuffle');
-		enableShuffleAction
-			.register()
-			.registerRunListener(( args, state ) => {
+		actionsCards['action_sonos_enable_shuffle'].registerRunListener(( args, state ) => {
 				return new Promise((resolve) => {
 					this.enableShuffle(args.speaker.id,(error, result) => {
 						if (error) {
@@ -127,28 +100,9 @@ class SonosSay extends Homey.App {
 					resolve(true);
 				})
 			});
-		})
-		.getArgument('speaker')
-		.registerAutocompleteListener(( query, args ) => {
-			return new Promise((resolve) => {
-				this.getSpeakersList((error, speakers) => {
-					if (error) {
-						return this.error(error);
-					}
-					let result = [];
-					speakers.forEach(entry => {
-						const name = entry.coordinator.roomName;
-						result.push({name: name, id: name});
-					});
-					resolve(result);
-				})
-			});
 		});
-
-		let disableShuffleAction = new Homey.FlowCardAction('action_sonos_disable_shuffle');
-		disableShuffleAction
-			.register()
-			.registerRunListener(( args, state ) => {
+		
+		actionsCards['action_sonos_disable_shuffle'].registerRunListener(( args, state ) => {
 				return new Promise((resolve) => {
 					this.disableShuffle(args.speaker.id, (error, result) => {
 						if (error) {
@@ -157,28 +111,9 @@ class SonosSay extends Homey.App {
 					resolve(true);
 				})
 			});
-		})
-		.getArgument('speaker')
-		.registerAutocompleteListener(( query, args ) => {
-			return new Promise((resolve) => {
-				this.getSpeakersList((error, speakers) => {
-					if (error) {
-						return this.error(error);
-					}
-					let result = [];
-					speakers.forEach(entry => {
-						const name = entry.coordinator.roomName;
-						result.push({name: name, id: name});
-					});
-					resolve(result);
-				})
-			});
 		});
-
-		let enableCrossfadeAction = new Homey.FlowCardAction('action_sonos_enable_crossfade');
-		enableCrossfadeAction
-			.register()
-			.registerRunListener(( args, state ) => {
+		
+		actionsCards['action_sonos_enable_crossfade'].registerRunListener(( args, state ) => {
 				return new Promise((resolve) => {
 					this.enableCrossfade(args.speaker.id,(error, result) => {
 						if (error) {
@@ -187,28 +122,9 @@ class SonosSay extends Homey.App {
 					resolve(true);
 				})
 			});
-		})
-		.getArgument('speaker')
-		.registerAutocompleteListener(( query, args ) => {
-			return new Promise((resolve) => {
-				this.getSpeakersList((error, speakers) => {
-					if (error) {
-						return this.error(error);
-					}
-					let result = [];
-					speakers.forEach(entry => {
-						const name = entry.coordinator.roomName;
-						result.push({name: name, id: name});
-					});
-					resolve(result);
-				})
-			});
 		});
 
-		let disableCrossfadeAction = new Homey.FlowCardAction('action_sonos_disable_crossfade');
-		disableCrossfadeAction
-			.register()
-			.registerRunListener(( args, state ) => {
+		actionsCards['action_sonos_disable_crossfade'].registerRunListener(( args, state ) => {
 				return new Promise((resolve) => {
 					this.disableCrossfade(args.speaker.id,(error, result) => {
 						if (error) {
@@ -217,109 +133,64 @@ class SonosSay extends Homey.App {
 					resolve(true);
 				})
 			});
-		})
-		.getArgument('speaker')
-		.registerAutocompleteListener(( query, args ) => {
-			return new Promise((resolve) => {
-				this.getSpeakersList((error, speakers) => {
-					if (error) {
-						return this.error(error);
-					}
-					let result = [];
-					speakers.forEach(entry => {
-						const name = entry.coordinator.roomName;
-						result.push({name: name, id: name});
-					});
-					resolve(result);
-				})
-			});
 		});
 
-		let sayAction = new Homey.FlowCardAction('action_sonos_say');
-		sayAction
-			.register()
-			.registerRunListener(( args, state ) => {
-				if(args.speaker.id === '-'){
-					return new Promise((resolve) => {
-						this.sayAll(args.text, args.volume, args.language, (error, result) => {
-							if (error) {
-								return this.error(error);
-							}
-							resolve(true);
-						})
-					});
-				} else {
-					return new Promise((resolve) => {
-						this.say(args.speaker.id, args.text, args.volume, args.language, (error, result) => {
-							if (error) {
-								return this.error(error);
-							}
-							resolve(true);
-						})
-					});
-				}
-			})
-			.getArgument('speaker')
-			.registerAutocompleteListener(( query, args ) => {
+		actionsCards['action_sonos_say'].registerRunListener(( args, state ) => {
+			if(args.speaker.id === '-'){
 				return new Promise((resolve) => {
-					this.getSpeakersList((error, speakers) => {
+					this.sayAll(args.text, args.volume, args.language, (error, result) => {
 						if (error) {
 							return this.error(error);
 						}
-						let result = [{ name: 'All Speakers', id: '-'}];
-						speakers.forEach(entry => {
-							const name = entry.coordinator.roomName;
-							result.push({name: name, id: name});
-						});
-						resolve(result);
+						resolve(true);
 					})
 				});
-			});
-
-
-
-		let sayUrlAction = new Homey.FlowCardAction('action_sonos_say_url');
-		sayUrlAction
-			.register()
-			.registerRunListener(( args, state ) => {
-				if(args.speaker.id === '-'){
-					return new Promise((resolve) => {
-						this.sayAllUrl(args.url, args.volume, args.durationAudio, (error, result) => {
-							if (error) {
-								return this.error(error);
-							}
-							resolve(true);
-						})
-					});
-				} else {
-					return new Promise((resolve) => {
-						console.log('args');
-						console.log(args);
-						this.sayUrl(args.speaker.id, args.url, args.volume, args.durationAudio, (error, result) => {
-							if (error) {
-								return this.error(error);
-							}
-							resolve(true);
-						})
-					});
-				}
-			})
-			.getArgument('speaker')
-			.registerAutocompleteListener(( query, args ) => {
+			} else {
 				return new Promise((resolve) => {
-					this.getSpeakersList((error, speakers) => {
+					this.say(args.speaker.id, args.text, args.volume, args.language, (error, result) => {
 						if (error) {
 							return this.error(error);
 						}
-						let result = [{ name: 'All Speakers', id: '-'}];
-						speakers.forEach(entry => {
-							const name = entry.coordinator.roomName;
-							result.push({name: name, id: name});
-						});
-						resolve(result);
+						resolve(true);
 					})
 				});
+			}
+		});
+
+
+		/// New stuff
+		actionsCards['action_sonos_say_url'].registerRunListener(( args, state ) => {
+			if(args.speaker.id === '-'){
+				return new Promise((resolve) => {
+					this.sayAllUrl(args.url, args.volume, args.durationAudio, (error, result) => {
+						if (error) {
+							return this.error(error);
+						}
+						resolve(true);
+					})
+				});
+			} else {
+				return new Promise((resolve) => {
+					console.log('args');
+					console.log(args);
+					this.sayUrl(args.speaker.id, args.url, args.volume, args.durationAudio, (error, result) => {
+						if (error) {
+							return this.error(error);
+						}
+						resolve(true);
+					})
+				});
+			}
+		});
+
+		actionsCards['action_sonos_clear_queue'].registerRunListener(( args, state ) => {
+			return new Promise((resolve) => {
+				this.clearQueue(args.speaker.id,(error, result) => {
+					if (error) return this.error(error);
+					resolve(true);
 			});
+		});
+	});
 
 	}
 	
@@ -353,6 +224,14 @@ class SonosSay extends Homey.App {
 			callback(error, !!error ? null : JSON.parse(response))
 		})
 	}
+	
+	clearQueue(roomName, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/clearqueue/`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
+
+
 
 	lockVolume(callback){
 		http.get(`http://${Homey.app.host}:${Homey.app.port}/lockvolumes`, (error, response) => {
