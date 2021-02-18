@@ -418,7 +418,10 @@
             "step": 1,
             "label": "%",
             "labelMultiplier": 1,
-            "labelDecimals": 0
+            "labelDecimals": 0,
+            "title": {
+              "en": "Volume"
+            }
           },
           {
             "name": "url",

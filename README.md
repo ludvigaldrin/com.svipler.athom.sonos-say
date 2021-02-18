@@ -2,7 +2,12 @@
 
 Let's you broadcast text to your Sonos system
 
-V3.0.1
+V3.1.1
+* Added Clear Queueu
+* Coding improvements
+
+
+V3.1.0
 * Added TV as a input source
 * General improvements
 
@@ -26,7 +31,8 @@ V1.0.0
 # Installation
 1. Clone repo
 2. npm install
-3. Install to Athom (athom app install)
+3. npm install -g homey (Update Homey sdk if not done yet)
+4. Install to Athom (athom app install)
 
 # Contributor
 Special thanks to Arie J. Godschalk who made Version 3 serverless
