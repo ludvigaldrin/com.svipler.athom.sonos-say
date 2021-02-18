@@ -2,8 +2,12 @@
 
 Let's you broadcast text to your Sonos system
 
+V3.0.1
+* Added TV as a input source
+* General improvements
+
 V3.0.0
-* No need to install node-sonos-http-api externally. 
+* No need to install node-sonos-http-api externally. Big thanks to Arie J. Godschalk
 
 V2.0.1
 * small fixes
