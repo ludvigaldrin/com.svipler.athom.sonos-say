@@ -2,6 +2,9 @@
 
 Let's you broadcast text to your Sonos system
 
+V3.0.2
+* Added Clear que
+
 V3.0.1
 * Added TV as a input source
 * General improvements
