@@ -1,6 +1,7 @@
 'use strict';
 
 function isRadioOrLineIn(uri) {
+  console.log('isRadioOrLineIn uri: ' + uri);
   return uri.startsWith('x-sonosapi-stream:') ||
     uri.startsWith('x-sonosapi-radio:') ||
     uri.startsWith('pndrradio:') ||

@@ -2,9 +2,17 @@
 
 Let's you broadcast text to your Sonos system
 
-To make use of Sonos Say you need o install <a href="https://github.com/jishi/node-sonos-http-api">node-sonos-http-api</a> on a separate computer. Recommended use is a Raspberry PI.
+V3.1.1
+* Added Clear Queueu
+* Coding improvements
 
-You then have to point out the URL and language setting on the setting page. When you have everything setup you just add a action step with your text and your good to go.
+
+V3.1.0
+* Added TV as a input source
+* General improvements
+
+V3.0.0
+* No need to install node-sonos-http-api externally. Big thanks to Arie J. Godschalk
 
 V2.0.1
 * small fixes
@@ -23,8 +31,12 @@ V1.0.0
 # Installation
 1. Clone repo
 2. npm install
-3. Install to Athom (athom app install)
+3. npm install -g homey (Update Homey sdk if not done yet)
+4. Install to Athom (athom app install)
 
 # Contributor
-Special thanks to MadMonkey87 how made most of Version 2
+Special thanks to Arie J. Godschalk who made Version 3 serverless
+https://github.com/XeroxQ
+
+Special thanks to MadMonkey87 who made most of Version 2
 https://github.com/MadMonkey87/
