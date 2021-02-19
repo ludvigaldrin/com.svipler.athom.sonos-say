@@ -2,6 +2,9 @@
 
 Let's you broadcast text to your Sonos system
 
+V3.1.4
+* Reduced filesize by removing some unwanted options
+
 V3.1.3
 * Added Toggle Mute
 * Small fixes
