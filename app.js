@@ -37,17 +37,24 @@ class SonosSay extends Homey.App {
 			if(actionCard.args) {
 				if(actionCard.args.find(x=>x.name=='speaker' && x.type=='autocomplete')) card.getArgument('speaker').registerAutocompleteListener(( query, args ) => {
 						return new Promise((resolve) => {
-							this.getSpeakersList((error, speakers) => {
-								if (error) {
-									return this.error(error);
-								}
-								let result = [];
-								if(speakers) speakers.forEach(entry => {
-									const name = entry.coordinator.roomName;
-									result.push({name: name, id: name});
-								});
-								resolve(result);
-							})
+								this.getSpeakersList((error, speakers) => {
+									if (error) {
+										return this.error(error);
+									}
+									console.log("Speaker fetch...");
+									console.log(speakers);
+									let result = [];
+									if (speakers.status == "error"){
+										result.push({name: "Something went wrong, please try again!", id: "NA"});
+									} else {
+										if(speakers) speakers.forEach(entry => {
+											const name = entry.coordinator.roomName;
+											result.push({name: name, id: name});
+										});
+									}
+									console.log("Speaker fetch...done");
+									resolve(result);
+								})
 						});
 					});
 			}
@@ -65,6 +72,15 @@ class SonosSay extends Homey.App {
 		actionsCards['action_sonos_unlock_volume'].registerRunListener(( args, state ) => {
 			return new Promise((resolve) => {
 				this.unlockVolume((error, result) => {
+					if (error) return this.error(error);
+					resolve(true);
+				})
+			});
+		});
+
+		actionsCards['action_sonos_toggle_mute'].registerRunListener(( args, state ) => {
+			return new Promise((resolve) => {
+				this.toggleMute(args.speaker.id, (error, result) => {
 					if (error) return this.error(error);
 					resolve(true);
 				})
@@ -157,7 +173,6 @@ class SonosSay extends Homey.App {
 			}
 		});
 
-
 		/// New stuff
 		actionsCards['action_sonos_say_url'].registerRunListener(( args, state ) => {
 			if(args.speaker.id === '-'){
@@ -231,8 +246,6 @@ class SonosSay extends Homey.App {
 		})
 	}
 
-
-
 	lockVolume(callback){
 		http.get(`http://${Homey.app.host}:${Homey.app.port}/lockvolumes`, (error, response) => {
 			callback(error, !!error ? null : JSON.parse(response))
@@ -245,6 +258,12 @@ class SonosSay extends Homey.App {
 		})
 	}
 
+	toggleMute(roomName, callback){
+		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/togglemute`, (error, response) => {
+			callback(error, !!error ? null : JSON.parse(response))
+		})
+	}
+	
 	setSleepMode(roomName, duration, callback){
 		if(duration <= 0){
 			duration = 'off';
