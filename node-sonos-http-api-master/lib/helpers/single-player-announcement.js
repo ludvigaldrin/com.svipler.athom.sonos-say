@@ -1,5 +1,6 @@
 'use strict';
 const logger = require('sonos-discovery/lib/helpers/logger');
+const { Defer } = require('../../../lib/proto');
 const isRadioOrLineIn = require('../helpers/is-radio-or-line-in');
 const backupPresets = {};
 
@@ -20,11 +21,27 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
     // This one is coordinator, you will need to rejoin
     // remember which group you were part of.
     const group = system.zones.find(zone => zone.coordinator.uuid === player.coordinator.uuid);
+    
     if (group.members.length > 1) {
-      logger.debug('Think its coordinator, will find uri later');
+      console.log('Think its coordinator, will find uri later');
+      
+      // console.log(player.avTransportUri);
+      // console.log(player.avTransportUriMetadata);
+
       groupToRejoin = group.id;
       backupPreset.group = group.id;
+      backupPreset.spdif = player.avTransportUri.indexOf('spdif')>-1;
+      if(backupPreset.spdif) {
+        backupPreset.state = state.playbackState;
+        backupPreset.metadata = player.avTransportUriMetadata;
+        backupPreset.playMode = {
+          repeat: 'none'
+        };
+      }
+      console.log('Think its coordinator, will find uri later - done');
     } else {
+      
+      console.log('Think its no coordinator');
       // was stand-alone, so keep state
       backupPreset.state = state.playbackState;
       backupPreset.uri = player.avTransportUri;
@@ -40,8 +57,20 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
 
     }
   } else {
+    // console.log('else');
+    // console.log(player.avTransportUri);
+    // console.log(player.avTransportUriMetadata);
     // Was grouped, so we use the group uri here directly.
-    backupPreset.uri = `x-rincon:${player.coordinator.uuid}`;
+    backupPreset.spdif = player.avTransportUri.indexOf('spdif')>-1;
+      if(backupPreset.spdif) {
+        backupPreset.state = state.playbackState;
+        backupPreset.metadata = player.avTransportUriMetadata;
+        backupPreset.playMode = {
+          repeat: 'none'
+        };
+      }
+      backupPreset.uri = `x-rincon:${player.coordinator.uuid}`;// + (player.avTransportUri.indexOf('spdif')>-1 ? ':spdif' : '');
+      backupPreset.uriSpdif = `x-rincon:${player.coordinator.uuid}` + (player.avTransportUri.indexOf('spdif')>-1 ? ':spdif' : '');
   }
 
   logger.debug('backup state was', backupPreset);
@@ -67,9 +96,10 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
   logger.debug('backup presets array', backupPresets[player.roomName]);
 
   const prepareBackupPreset = () => {
-    if (backupPresets[player.roomName].length > 1) {
-      backupPresets[player.roomName].shift();
+    if (backupPresets[player.roomName].length > 1) {      
       logger.debug('more than 1 backup presets during prepare', backupPresets[player.roomName]);
+      backupPresets[player.roomName].shift();
+      logger.debug('more than 1 backup presets during prepare: remaining', backupPresets[player.roomName]);
       return Promise.resolve();
     }
 
@@ -81,19 +111,92 @@ function singlePlayerAnnouncement(player, uri, volume, duration) {
 
     logger.debug('exactly 1 preset left', relevantBackupPreset);
 
+    console.log('relevantBackupPreset');
+    console.log(relevantBackupPreset);
     if (relevantBackupPreset.group) {
+      console.log('relevantBackupPreset.group');
       const zone = system.zones.find(zone => zone.id === relevantBackupPreset.group);
+      console.log('relevantBackupPreset.zone');
       if (zone) {
-        relevantBackupPreset.uri = `x-rincon:${zone.uuid}`;
+          
+          relevantBackupPreset.uri = `x-rincon:${zone.uuid}`;// + (relevantBackupPreset.spdif ? ':spdif' : '');
+          console.log('relevantBackupPreset.uri');
+          console.log(relevantBackupPreset.uri );
+          relevantBackupPreset.uriSpdif  = relevantBackupPreset.spdif ? `x-sonos-htastream:${zone.uuid}` +':spdif' : null;
+          //relevantBackupPreset.uri = `x-sonos-htastream:${zone.uuid}` + (relevantBackupPreset.spdif ? ':spdif' : '');
       }
     }
-
+    //delete relevantBackupPreset.spdif;
+    
     logger.debug('applying preset', relevantBackupPreset);
-    return system.applyPreset(relevantBackupPreset)
-      .then(() => {
-        backupPresets[player.roomName].shift();
-        logger.debug('after backup preset applied', backupPresets[player.roomName]);
+    console.log('applying preset');
+    console.log(relevantBackupPreset);
+    var relevantBackupPreset2 = relevantBackupPreset.uriSpdif ? {
+      players: relevantBackupPreset.players,
+      state: relevantBackupPreset.state,
+      uri: 'x-sonos-htastream:' + player.uuid + ':spdif',
+      metadata: '',
+      playMode: { repeat: 'none' }
+    } : null;
+    
+    console.log('relevantBackupPreset 2e');          
+    console.log(relevantBackupPreset2);
+    var defer = new Defer();
+    if(relevantBackupPreset2) return system.applyPreset(relevantBackupPreset2).then(x=> {
+      
+      const zone = system.zones.find(zone => zone.id === relevantBackupPreset.group);
+      // connect each device from the "zone" again...
+      console.log('zone');
+      console.log(zone);
+      console.log('adding members again');
+      if(zone) zone.members.forEach(member => {
+        console.log('member');
+        console.log(member);
+        attachTo(member, player );
       });
+      
+      backupPresets[player.roomName].shift(relevantBackupPreset2);
+      backupPresets[player.roomName].shift(relevantBackupPreset);
+      defer.resolve() ;
+
+      function rinconUri(player) {
+        return `x-rincon:${player.uuid}`;
+      }
+      
+      function attachTo(player, coordinator) {
+        console.log('attachTo');
+        //console.log(player);
+        console.log(coordinator);
+        return player.setAVTransport(rinconUri(coordinator));
+      }
+      
+    });
+    else r().then(()=>{defer.resolve(); });
+
+    console.log('relevantBackupPreset');          
+    console.log(relevantBackupPreset);
+    return defer.promise;
+    function r() {
+      console.log('r');
+      console.log(r);
+      return system.applyPreset(relevantBackupPreset)
+        .then(() => {
+          backupPresets[player.roomName].shift();
+          logger.debug('after backup preset applied', backupPresets[player.roomName]);
+      
+      
+        //   if(relevantBackupPreset2) {
+        //     console.log(player.uuid);
+        //     relevantBackupPreset.uri = 'x-rincon-stream:RINCON_949F3E67D30101400';//relevantBackupPreset.uriSpdif; //:spdif
+        //     //const uri = `x-rincon-stream:${lineinSourcePlayer.uuid}`;
+        //     delete relevantBackupPreset.group;
+        //     console.log('relevantBackupPreset 2e');          
+        //     console.log(relevantBackupPreset);
+        //     system.applyPreset(relevantBackupPreset);
+        //   }
+          
+        });
+    }
   }
 
   let timer;
