@@ -37,24 +37,24 @@ class SonosSay extends Homey.App {
 			if(actionCard.args) {
 				if(actionCard.args.find(x=>x.name=='speaker' && x.type=='autocomplete')) card.getArgument('speaker').registerAutocompleteListener(( query, args ) => {
 						return new Promise((resolve) => {
-							if (speakers == null){
-								return this.error("Something is wrong with fetching speakers!");
-							} else {
 								this.getSpeakersList((error, speakers) => {
 									if (error) {
 										return this.error(error);
 									}
+									console.log("Speaker fetch...");
+									console.log(speakers);
 									let result = [];
-									if (typeof speakers.forEach != "function") { 
-										return this.error("Something is wrong with fetching speakers!");
-									} 
-									if(speakers) speakers.forEach(entry => {
-										const name = entry.coordinator.roomName;
-										result.push({name: name, id: name});
-									});
+									if (speakers.status == "error"){
+										result.push({name: "Something went wrong, please try again!", id: "NA"});
+									} else {
+										if(speakers) speakers.forEach(entry => {
+											const name = entry.coordinator.roomName;
+											result.push({name: name, id: name});
+										});
+									}
+									console.log("Speaker fetch...done");
 									resolve(result);
 								})
-							}
 						});
 					});
 			}
