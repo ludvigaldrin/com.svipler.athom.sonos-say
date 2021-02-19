@@ -39,7 +39,7 @@ var requestHandler = function (req, res) {
       res.setHeader('Access-Control-Allow-Origin', '*');
       if (req.headers['access-control-request-headers']) {
         res.setHeader('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
-      }
+      } 
 
       if (req.method === 'OPTIONS') {
         res.end();
