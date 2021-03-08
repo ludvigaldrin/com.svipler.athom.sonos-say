@@ -9,7 +9,7 @@ const settings = require('../../settings');
 let port;
 let system;
 
-function sayUrl(player, values) {
+function sayAllUrl(player, values) {
   let url;
   try {
     console.log('values');
@@ -35,7 +35,7 @@ function sayUrl(player, values) {
 
 module.exports = function (api) {
   port = api.getPort();
-  api.registerAction('sayurl', sayUrl);
+  api.registerAction('sayallurl', sayAllUrl);
 
   system = api.discovery;
 }
