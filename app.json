@@ -4,10 +4,12 @@
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
-    "en": "Sonos Say"
+    "en": "Sonos Say",
+    "de": "Sonos sag"
   },
   "description": {
-    "en": "Let's you broadcast text to your Sonos system and provides some other features the official app does not"
+    "en": "Let's you broadcast text to your Sonos system and provides some other features the official app does not",
+    "de": "Ermöglicht das Abspielen von Textzeilen über Sonos Systeme und stellt erweiterte Funktionen gegenüber der offiziellen App bereit"
   },
   "category": [
     "tools"
@@ -26,6 +28,11 @@
       {
         "name": "Arie J. Godschalk"
       }
+    ],
+    "translators": [
+        {
+            "name": "🇩🇪 - Markus Mahr"
+        }
     ]
   },
   "permissions": [],
@@ -42,31 +49,36 @@
       {
         "id": "action_sonos_lock_volume",
         "title": {
-          "en": "Lock all volumes"
+          "en": "Lock all volumes",
+          "de": "festsetzen aller Lautstärken"
         },
         "args": []
       },
       {
         "id": "action_sonos_unlock_volume",
         "title": {
-          "en": "Unlock all volumes"
+          "en": "Unlock all volumes",
+          "de": "Freigeben aller Lautstärken"
         },
         "args": []
       },
       {
         "id": "action_sonos_set_repeat_mode",
         "title": {
-          "en": "Set repeat mode"
+          "en": "Set repeat mode",
+          "de": "Wiederholungsmodus einstellen"
         },
         "titleFormatted": {
-          "en": "Set repeat mode to [[repeatmode]] on [[speaker]]"
+          "en": "Set repeat mode to [[repeatmode]] on [[speaker]]",
+          "de": "Wiederholmodus [[repeatmode]] auf [[speaker]] einstellen"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           },
           {
@@ -76,19 +88,22 @@
               {
                 "id": "none",
                 "label": {
-                  "en": "Disabled"
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
                 }
               },
               {
                 "id": "all",
                 "label": {
-                  "en": "Repeat All"
+                  "en": "Repeat All",
+                  "de": "Alle wiederholen"
                 }
               },
               {
                 "id": "one",
                 "label": {
-                  "en": "Repeat One"
+                  "en": "Repeat One",
+                  "de": "eins wiederholen"
                 }
               }
             ]
@@ -98,17 +113,20 @@
       {
         "id": "action_sonos_toggle_mute",
         "title": {
-          "en": "Toggle mute"
+          "en": "Toggle mute",
+          "de": "Stummschaltung umschalten"
         },
         "titleFormatted": {
-          "en": "Togle mute on [[speaker]]"
+          "en": "Toggle mute on [[speaker]]",
+          "de": "Stummschaltung auf [[speaker]] umschalten"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           }
         ]
@@ -116,24 +134,28 @@
       {
         "id": "action_sonos_set_sleepmode",
         "title": {
-          "en": "Set sleepmode"
+          "en": "Set sleepmode",
+          "de": "Schlummermodus einstellen"
         },
         "titleFormatted": {
-          "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]"
+          "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]",
+          "de": "Schlummermodus nach [[timeout]] sekunden auf [[speaker]] einstellen"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           },
           {
             "type": "number",
             "name": "timeout",
             "placeholder": {
-              "en": "Duration in seconds or 0 to disable"
+              "en": "Duration in seconds or 0 to disable",
+              "de": "Dauer in sekunden oder 0 zum deaktivieren"
             },
             "min": 0,
             "step": 1
@@ -143,17 +165,20 @@
       {
         "id": "action_sonos_enable_shuffle",
         "title": {
-          "en": "Enable shuffle"
+          "en": "Enable shuffle",
+          "de": "Zufallswiedergabe einschalten"
         },
         "titleFormatted": {
-          "en": "Enable shuffle on [[speaker]]"
+          "en": "Enable shuffle on [[speaker]]",
+          "de": "Zufallswiedergabe für [[speaker]] einschalten"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           }
         ]
@@ -161,17 +186,20 @@
       {
         "id": "action_sonos_disable_shuffle",
         "title": {
-          "en": "Disable shuffle"
+          "en": "Disable shuffle",
+          "de": "Zufallswiedergabe ausschalten"
         },
         "titleFormatted": {
-          "en": "Disable shuffle on [[speaker]]"
+          "en": "Disable shuffle on [[speaker]]",
+          "de": "Zufallswiedergabe für [[speaker]] ausschalten"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           }
         ]
@@ -179,17 +207,20 @@
       {
         "id": "action_sonos_enable_crossfade",
         "title": {
-          "en": "Enable crossfade"
+          "en": "Enable crossfade",
+          "de": "Überblenden einschalten"
         },
         "titleFormatted": {
-          "en": "Enable crossfade on [[speaker]]"
+          "en": "Enable crossfade on [[speaker]]",
+          "de": "Überblenden für [[speaker]] einschalten"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           }
         ]
@@ -197,17 +228,20 @@
       {
         "id": "action_sonos_disable_crossfade",
         "title": {
-          "en": "Disable crossfade"
+          "en": "Disable crossfade",
+          "de": "Überblenden ausschalten"
         },
         "titleFormatted": {
-          "en": "Disable crossfade on [[speaker]]"
+          "en": "Disable crossfade on [[speaker]]",
+          "de": "Überblenden für [[speaker]] ausschalten"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           }
         ]
@@ -215,24 +249,28 @@
       {
         "id": "action_sonos_say",
         "title": {
-          "en": "Text to Speech"
+          "en": "Text to Speech",
+          "de": "Text zu Sprache"
         },
         "titleFormatted": {
-          "en": "Say [[text]] on [[speaker]], [[volume]] volume in [[language]]"
+          "en": "Say [[text]] on [[speaker]], [[volume]] volume in [[language]]",
+          "de": "Sage [[text]] auf [[speaker]], mit [[volume]] Lautstärke in [[language]]"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           },
           {
             "type": "range",
             "name": "volume",
             "placeholder": {
-              "en": "volume"
+              "en": "volume",
+              "de": Lautstärke"
             },
             "min": 0,
             "max": 100,
@@ -248,157 +286,183 @@
               {
                 "id": "ca-es",
                 "label": {
-                  "en": "Catalan"
+                  "en": "Catalan",
+                  "de": "Katalanisch"
                 }
               },
               {
                 "id": "zh-cn",
                 "label": {
-                  "en": "Chinese (China)"
+                  "en": "Chinese (China)",
+                  "de": "Chinesisch (China)"
                 }
               },
               {
                 "id": "zh-hk",
                 "label": {
-                  "en": "Chinese (Hong Kong)"
+                  "en": "Chinese (Hong Kong)",
+                  "de": "Chinesisch (Hong Kong)"
                 }
               },
               {
                 "id": "zh-tw",
                 "label": {
-                  "en": "Chinese (Taiwan)"
+                  "en": "Chinese (Taiwan)",
+                  "de": "Chinesisch (Taiwan)"
                 }
               },
               {
                 "id": "da-dk",
                 "label": {
-                  "en": "Danish"
+                  "en": "Danish",
+                  "de": "Dänisch"
                 }
               },
               {
                 "id": "nl-nl",
                 "label": {
-                  "en": "Dutch"
+                  "en": "Dutch",
+                  "de": "Niederländisch"
                 }
               },
               {
                 "id": "en-au",
                 "label": {
-                  "en": "English (Australia)"
+                  "en": "English (Australia)",
+                  "de": "Englisch (Australien)"
                 }
               },
               {
                 "id": "en-ca",
                 "label": {
-                  "en": "English (Canada)"
+                  "en": "English (Canada)",
+                  "de": "Englisch (Kanada)"
                 }
               },
               {
                 "id": "en-gb",
                 "label": {
-                  "en": "English (Great Britain)"
+                  "en": "English (Great Britain)",
+                  "de": "Englisch (England)
                 }
               },
               {
                 "id": "en-in",
                 "label": {
-                  "en": "English (India)"
+                  "en": "English (India)",
+                  "de": "Englisch (Indien)"
                 }
               },
               {
                 "id": "en-us",
                 "label": {
-                  "en": "English (United States)"
+                  "en": "English (United States)",
+                  "en": "Englisch (USA)"
                 }
               },
               {
                 "id": "fi-fi",
                 "label": {
-                  "en": "Finnish"
+                  "en": "Finnish",
+                  "de": "Finnisch"
                 }
               },
               {
                 "id": "fr-ca",
                 "label": {
-                  "en": "French (Canada)"
+                  "en": "French (Canada)",
+                  "de": "Französich (Kanda)"
                 }
               },
               {
                 "id": "fr-fr",
                 "label": {
-                  "en": "French (France)"
+                  "en": "French (France)",
+                  "de": "Französich (Frankreich)"
                 }
               },
               {
                 "id": "de-de",
                 "label": {
-                  "en": "German"
+                  "en": "German",
+                  "de": "Deutsch"
                 }
               },
               {
                 "id": "it-it",
                 "label": {
-                  "en": "Italian"
+                  "en": "Italian",
+                  "de": "Italienisch"
                 }
               },
               {
                 "id": "ja-jp",
                 "label": {
-                  "en": "Japanese"
+                  "en": "Japanese",
+                  "de": "Japanisch"
                 }
               },
               {
                 "id": "ko-kr",
                 "label": {
-                  "en": "Korean"
+                  "en": "Korean",
+                  "de": "Koreanisch"
                 }
               },
               {
                 "id": "nb-no",
                 "label": {
-                  "en": "Norwegian"
+                  "en": "Norwegian",
+                  "de": "Norwegisch"
                 }
               },
               {
                 "id": "pl-pl",
                 "label": {
-                  "en": "Polish"
+                  "en": "Polish",
+                  "de": "Polnisch"
                 }
               },
               {
                 "id": "pt-br",
                 "label": {
-                  "en": "Portuguese (Brazil)"
+                  "en": "Portuguese (Brazil)",
+                  "de": "Portugiesisch (Brasilien)"
                 }
               },
               {
                 "id": "pt-pt",
                 "label": {
-                  "en": "Portuguese (Portugal)"
+                  "en": "Portuguese (Portugal)",
+                  "de": "Portugiesisch (Portugal)"
                 }
               },
               {
                 "id": "ru-ru",
                 "label": {
-                  "en": "Russian"
+                  "en": "Russian",
+                  "de": "Russich"
                 }
               },
               {
                 "id": "es-mx",
                 "label": {
-                  "en": "Spanish (Mexico)"
+                  "en": "Spanish (Mexico)",
+                  "de": "Spanisch (Mexico)"
                 }
               },
               {
                 "id": "es-es",
                 "label": {
-                  "en": "Spanish (Spain)"
+                  "en": "Spanish (Spain)",
+                  "de": "Spanisch (Spain)"
                 }
               },
               {
                 "id": "sv-se",
                 "label": {
-                  "en": "Swedish (Sweden)"
+                  "en": "Swedish (Sweden)",
+                  "de": "Schwedisch (Schweden)"
                 }
               }
             ]
@@ -412,24 +476,28 @@
       {
         "id": "action_sonos_say_url",
         "title": {
-          "en": "Send announcement (url)"
+          "en": "Send announcement (url)",
+          "de": "Durchsage senden (url)"
         },
         "titleFormatted": {
-          "en": "Send [[url]](URL) as announcement on [[speaker]], [[volume]] volume, [[durationAudio]] ms duration"
+          "en": "Send [[url]](URL) as announcement on [[speaker]], [[volume]] volume, [[durationAudio]] ms duration",
+          "de": "Sende [[url]](URL) als Durchsage an [[speaker]], mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           },
           {
             "type": "range",
             "name": "volume",
             "placeholder": {
-              "en": "volume"
+              "en": "volume",
+              "de": "Lautstärke"
             },
             "min": 0,
             "max": 100,
@@ -438,14 +506,16 @@
             "labelMultiplier": 1,
             "labelDecimals": 0,
             "title": {
-              "en": "Volume"
+              "en": "Volume",
+              "de": "Lautstärke"
             }
           },
           {
             "name": "url",
             "type": "text",
             "placeholder": {
-              "en": "Url"
+              "en": "Url",
+              "de": Url"
             },
             "hint":"Url"
           },
@@ -453,7 +523,8 @@
             "type": "number",
             "name": "durationAudio",            
             "placeholder": {
-              "en": "Duration"
+              "en": "Duration",
+              "de": "Laufzeit"
             }
           }
         ]
@@ -461,17 +532,20 @@
       {
         "id": "action_sonos_clear_queue",
         "title": {
-          "en": "Clear Queue"
+          "en": "Clear Queue",
+          "de": "Warteschlange löschen"
         },
         "titleFormatted": {
-          "en": "Clear the Queue on [[speaker]]"
+          "en": "Clear the Queue on [[speaker]]",
+          "de": "Warteschlange von [[speaker]] löschen"
         },
         "args": [
           {
             "type": "autocomplete",
             "name": "speaker",
             "placeholder": {
-              "en": "Search for speakers..."
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprächern..."
             }
           }
         ]
