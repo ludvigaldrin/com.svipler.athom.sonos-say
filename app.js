@@ -44,6 +44,8 @@ class SonosSay extends Homey.App {
 									console.log("Speaker fetch...");
 									console.log(speakers);
 									let result = [];
+									
+									if(['action_sonos_say', 'action_sonos_say_url'].indexOf(actionCard.id)>-1) result.push({ name: 'All Speakers', id: '-'});
 									if (speakers.status == "error"){
 										result.push({name: "Something went wrong, please try again!", id: "NA"});
 									} else {
