@@ -20,7 +20,6 @@ class SonosSay extends Homey.App {
 	initializeServer() {
 		console.log('Initialize Server for node-sonos');
 		let _server = server;
-		_server.
 	}
 
 	initializeActions() {
@@ -39,8 +38,6 @@ class SonosSay extends Homey.App {
 							if (error) {
 								return this.error(error);
 							}
-							console.log("Speaker fetch...");
-							console.log(speakers);
 							let result = [];
 
 							if (['action_sonos_say', 'action_sonos_say_url'].indexOf(actionCard.id) > -1) result.push({ name: 'All Speakers', id: '-' });
@@ -55,7 +52,6 @@ class SonosSay extends Homey.App {
 								});
 							}
 							result.sort((i, j) => ('' + i.name).localeCompare(j.name));
-							console.log("Speaker fetch...done");
 							resolve(result);
 						})
 					});
@@ -64,113 +60,110 @@ class SonosSay extends Homey.App {
 		}
 
 		actionsCards['action_sonos_lock_volume'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.lockVolume((error, result) => {
-					if (error) return this.error(error);
-					resolve(true);
+					if (error) { reject(error); } else {
+						resolve(true);
+					}
 				})
 			});
 		});
 
 		actionsCards['action_sonos_unlock_volume'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.unlockVolume((error, result) => {
-					if (error) return this.error(error);
-					resolve(true);
+					if (error) { reject(error); } else {
+						resolve(true);
+					}
 				})
 			});
 		});
 
 		actionsCards['action_sonos_toggle_mute'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.toggleMute(args.speaker.id, (error, result) => {
-					if (error) return this.error(error);
-					resolve(true);
+					if (error) { reject(error); } else {
+						resolve(true);
+					}
 				})
 			});
 		});
 
 		actionsCards['action_sonos_set_sleepmode'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.setSleepMode(args.speaker.id, args.timeout, (error, result) => {
-					if (error) return this.error(error);
-					resolve(true);
+					if (error) { reject(error); } else {
+						resolve(true);
+					}
 				})
 			});
 		});
 
 		actionsCards['action_sonos_set_repeat_mode'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.setRepeatMode(args.speaker.id, args.repeatmode, (error, result) => {
-					if (error) {
-						return this.error(error);
+					if (error) { reject(error); } else {
+						resolve(true);
 					}
-					resolve(true);
 				})
 			});
 		});
 
 		actionsCards['action_sonos_enable_shuffle'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.enableShuffle(args.speaker.id, (error, result) => {
-					if (error) {
-						return this.error(error);
+					if (error) { reject(error); } else {
+						resolve(true);
 					}
-					resolve(true);
 				})
 			});
 		});
 
 		actionsCards['action_sonos_disable_shuffle'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.disableShuffle(args.speaker.id, (error, result) => {
-					if (error) {
-						return this.error(error);
+					if (error) { reject(error); } else {
+						resolve(true);
 					}
-					resolve(true);
 				})
 			});
 		});
 
 		actionsCards['action_sonos_enable_crossfade'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.enableCrossfade(args.speaker.id, (error, result) => {
-					if (error) {
-						return this.error(error);
+					if (error) { reject(error); } else {
+						resolve(true);
 					}
-					resolve(true);
 				})
 			});
 		});
 
 		actionsCards['action_sonos_disable_crossfade'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.disableCrossfade(args.speaker.id, (error, result) => {
-					if (error) {
-						return this.error(error);
+					if (error) { reject(error); } else {
+						resolve(true);
 					}
-					resolve(true);
 				})
 			});
 		});
 
 		actionsCards['action_sonos_say'].registerRunListener((args, state) => {
 			if (args.speaker.id === '-') {
-				return new Promise((resolve) => {
+				return new Promise((resolve, reject) => {
 					this.sayAll(args.text, args.volume, args.language, (error, result) => {
-						if (error) {
-							return this.error(error);
+						if (error) { reject(error); } else {
+							resolve(true);
 						}
-						resolve(true);
 					})
 				});
 			} else {
-				return new Promise((resolve) => {
+				return new Promise((resolve, reject) => {
 					this.say(args.speaker.id, args.text, args.volume, args.language, (error, result) => {
-						if (error) {
-							return this.error(error);
+						if (error) { reject(error); } else {
+							resolve(true);
 						}
-						resolve(true);
 					})
 				});
 			}
@@ -178,33 +171,30 @@ class SonosSay extends Homey.App {
 
 		actionsCards['action_sonos_say_url'].registerRunListener((args, state) => {
 			if (args.speaker.id === '-') {
-				return new Promise((resolve) => {
+				return new Promise((resolve, reject) => {
 					this.sayAllUrl(args.url, args.volume, args.durationAudio, (error, result) => {
-						if (error) {
-							return this.error(error);
+						if (error) { reject(error); } else {
+							resolve(true);
 						}
-						resolve(true);
 					})
 				});
 			} else {
-				return new Promise((resolve) => {
-					console.log('args');
-					console.log(args);
+				return new Promise((resolve, reject) => {
 					this.sayUrl(args.speaker.id, args.url, args.volume, args.durationAudio, (error, result) => {
-						if (error) {
-							return this.error(error);
+						if (error) { reject(error); } else {
+							resolve(true);
 						}
-						resolve(true);
 					})
 				});
 			}
 		});
 
 		actionsCards['action_sonos_clear_queue'].registerRunListener((args, state) => {
-			return new Promise((resolve) => {
+			return new Promise((resolve, reject) => {
 				this.clearQueue(args.speaker.id, (error, result) => {
-					if (error) return this.error(error);
-					resolve(true);
+					if (error) { reject(error); } else {
+						resolve(true);
+					}
 				});
 			});
 		});
