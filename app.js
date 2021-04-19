@@ -3,6 +3,7 @@
 const Homey = require('homey');
 const { http } = require('./nbhttp');
 const server = require('./node-sonos-http-api-master/server');
+const sonos_api = require('./node-sonos-http-api-master/sonos_api');
 
 class SonosSay extends Homey.App {
 
@@ -202,8 +203,8 @@ class SonosSay extends Homey.App {
 	}
 
 	getSpeakersList(callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/zones`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest('/zones', (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 

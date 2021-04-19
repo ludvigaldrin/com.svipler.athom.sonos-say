@@ -46,6 +46,54 @@ function HttpAPI(discovery, settings) {
     registerAction(this);
   });
 
+  this.fakeRequest = function (url, callback) {
+    if (discovery.zones.length === 0) {
+      const msg = 'No system has yet been discovered. Please see https://github.com/jishi/node-sonos-http-api/issues/77 if it doesn\'t resolve itself in a few seconds.';
+      logger.error(msg);
+      callback({ status: 'error', error: msg }, null);
+      return;
+    }
+
+    const params = url.substring(1).split('/');
+
+    // parse decode player name considering decode errors
+    let player;
+    try {
+      player = discovery.getPlayer(decodeURIComponent(params[0]));
+    } catch (error) {
+      logger.error(`Unable to parse supplied URI component (${params[0]})`, error);
+      callback({ status: 'error', error: error.message, stack: error.stack }, null);
+      return;
+    }
+
+    const opt = {};
+
+    if (player) {
+      opt.action = (params[1] || '').toLowerCase();
+      opt.values = params.splice(2);
+    } else {
+      player = discovery.getAnyPlayer();
+      opt.action = (params[0] || '').toLowerCase();
+      opt.values = params.splice(1);
+    }
+
+    opt.player = player;
+    Promise.resolve(handleAction(opt))
+      .then((response) => {
+        if (!response || response.constructor.name === 'IncomingMessage') {
+          response = { status: 'success' };
+        } else if (Array.isArray(response) && response.length > 0 && response[0].constructor.name === 'IncomingMessage') {
+          response = { status: 'success' };
+        }
+        callback(null, response);
+        return;
+      }).catch((error) => {
+        logger.error(error);
+        callback({ status: 'error', error: error.message, stack: error.stack }, null);
+        return;
+      });
+  };
+
   this.requestHandler = function (req, res) {
     if (req.url === '/favicon.ico') {
       res.end();
@@ -60,7 +108,7 @@ function HttpAPI(discovery, settings) {
     }
 
     const params = req.url.substring(1).split('/');
-    
+
     // parse decode player name considering decode errors
     let player;
     try {
@@ -92,18 +140,18 @@ function HttpAPI(discovery, settings) {
 
     opt.player = player;
     Promise.resolve(handleAction(opt))
-    .then((response) => {
-      if (!response || response.constructor.name === 'IncomingMessage') {
-        response = { status: 'success' };
-      } else if (Array.isArray(response) && response.length > 0 && response[0].constructor.name === 'IncomingMessage') {
-        response = { status: 'success' };
-      }
+      .then((response) => {
+        if (!response || response.constructor.name === 'IncomingMessage') {
+          response = { status: 'success' };
+        } else if (Array.isArray(response) && response.length > 0 && response[0].constructor.name === 'IncomingMessage') {
+          response = { status: 'success' };
+        }
 
-      sendResponse(200, response);
-    }).catch((error) => {
-      logger.error(error);
-      sendResponse(500, { status: 'error', error: error.message, stack: error.stack });
-    });
+        sendResponse(200, response);
+      }).catch((error) => {
+        logger.error(error);
+        sendResponse(500, { status: 'error', error: error.message, stack: error.stack });
+      });
   };
 
 
@@ -135,9 +183,9 @@ function HttpAPI(discovery, settings) {
     const body = Buffer.from(jsonBody, 'utf8');
 
     var headers = {
-        'Content-Type': 'application/json',
-        'Content-Length': body.length
-      }
+      'Content-Type': 'application/json',
+      'Content-Length': body.length
+    }
     if (settings.webhookHeaderName && settings.webhookHeaderContents) {
       headers[settings.webhookHeaderName] = settings.webhookHeaderContents;
     }
@@ -148,10 +196,10 @@ function HttpAPI(discovery, settings) {
       headers: headers,
       body
     })
-    .catch(function (err) {
-      logger.error('Could not reach webhook endpoint', settings.webhook, 'for some reason. Verify that the receiving end is up and running.');
-      logger.error(err);
-    })
+      .catch(function (err) {
+        logger.error('Could not reach webhook endpoint', settings.webhook, 'for some reason. Verify that the receiving end is up and running.');
+        logger.error(err);
+      })
   }
 
 }
