@@ -2,6 +2,12 @@
 
 Let's you broadcast text to your Sonos system
 
+V3.1.5
+* Fixed app manifest
+* Fixed german translations
+* Fix s.t searching in the speaker dropdowns work
+* Sort speakers in all dropdowns
+
 V3.1.4
 * Reduced filesize by removing some unwanted options
 

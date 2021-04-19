@@ -1,12 +1,13 @@
 {
   "id": "com.svipler.athom.sonos-say",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
     "en": "Sonos Say",
     "de": "Sonos sag"
   },
+  "brandColor": "#D8A158",
   "description": {
     "en": "Let's you broadcast text to your Sonos system and provides some other features the official app does not",
     "de": "Ermöglicht das Abspielen von Textzeilen über Sonos Systeme und stellt erweiterte Funktionen gegenüber der offiziellen App bereit"
@@ -30,9 +31,9 @@
       }
     ],
     "translators": [
-        {
-            "name": "🇩🇪 - Markus Mahr"
-        }
+      {
+        "name": "🇩🇪 - Markus Mahr"
+      }
     ]
   },
   "permissions": [],
@@ -50,7 +51,7 @@
         "id": "action_sonos_lock_volume",
         "title": {
           "en": "Lock all volumes",
-          "de": "festsetzen aller Lautstärken"
+          "de": "Fixieren aller Lautstärken"
         },
         "args": []
       },
@@ -78,7 +79,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           },
           {
@@ -103,7 +104,7 @@
                 "id": "one",
                 "label": {
                   "en": "Repeat One",
-                  "de": "eins wiederholen"
+                  "de": "Eins wiederholen"
                 }
               }
             ]
@@ -126,7 +127,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
@@ -139,7 +140,7 @@
         },
         "titleFormatted": {
           "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]",
-          "de": "Schlummermodus nach [[timeout]] sekunden auf [[speaker]] einstellen"
+          "de": "Schlummermodus nach [[timeout]] Sekunden auf [[speaker]] einstellen"
         },
         "args": [
           {
@@ -147,7 +148,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           },
           {
@@ -178,7 +179,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
@@ -199,7 +200,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
@@ -220,7 +221,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
@@ -241,7 +242,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
@@ -262,7 +263,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           },
           {
@@ -270,7 +271,7 @@
             "name": "volume",
             "placeholder": {
               "en": "volume",
-              "de": Lautstärke"
+              "de": "Lautstärke"
             },
             "min": 0,
             "max": 100,
@@ -343,7 +344,7 @@
                 "id": "en-gb",
                 "label": {
                   "en": "English (Great Britain)",
-                  "de": "Englisch (England)
+                  "de": "Englisch (England)"
                 }
               },
               {
@@ -357,7 +358,7 @@
                 "id": "en-us",
                 "label": {
                   "en": "English (United States)",
-                  "en": "Englisch (USA)"
+                  "de": "Englisch (USA)"
                 }
               },
               {
@@ -441,7 +442,7 @@
                 "id": "ru-ru",
                 "label": {
                   "en": "Russian",
-                  "de": "Russich"
+                  "de": "Russisch"
                 }
               },
               {
@@ -489,13 +490,13 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           },
           {
             "type": "range",
             "name": "volume",
-            "placeholder": {
+            "hint": {
               "en": "volume",
               "de": "Lautstärke"
             },
@@ -515,13 +516,13 @@
             "type": "text",
             "placeholder": {
               "en": "Url",
-              "de": Url"
+              "de": "Url"
             },
-            "hint":"Url"
+            "hint": "Url"
           },
           {
             "type": "number",
-            "name": "durationAudio",            
+            "name": "durationAudio",
             "placeholder": {
               "en": "Duration",
               "de": "Laufzeit"
@@ -533,7 +534,7 @@
         "id": "action_sonos_clear_queue",
         "title": {
           "en": "Clear Queue",
-          "de": "Warteschlange löschen"
+          "de": "Warteschlange leeren"
         },
         "titleFormatted": {
           "en": "Clear the Queue on [[speaker]]",
@@ -545,11 +546,11 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
       }
     ]
-	}
+  }
 }
