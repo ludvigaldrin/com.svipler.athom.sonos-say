@@ -1,7 +1,6 @@
 'use strict';
 
 const Homey = require('homey');
-const { http } = require('./nbhttp');
 const server = require('./node-sonos-http-api-master/server');
 const sonos_api = require('./node-sonos-http-api-master/sonos_api');
 
@@ -15,12 +14,6 @@ class SonosSay extends Homey.App {
 		this.port = "5005";
 
 		this.initializeActions();
-		this.initializeServer();
-	}
-
-	initializeServer() {
-		console.log('Initialize Server for node-sonos');
-		let _server = server;
 	}
 
 	initializeActions() {
@@ -209,49 +202,49 @@ class SonosSay extends Homey.App {
 	}
 
 	say(roomName, text, volume, language, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/say/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/say/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	sayUrl(roomName, url, volume, duration, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sayurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/sayurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 	sayAllUrl(url, volume, duration, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/sayallurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/sayallurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	sayAll(text, volume, language, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/sayall/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/sayall/${encodeURI(text)}/${language}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	clearQueue(roomName, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/clearqueue/`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/clearqueue/`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	lockVolume(callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/lockvolumes`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/lockvolumes`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	unlockVolume(callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/unlockvolumes`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/unlockvolumes`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	toggleMute(roomName, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/togglemute`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/togglemute`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
@@ -259,38 +252,38 @@ class SonosSay extends Homey.App {
 		if (duration <= 0) {
 			duration = 'off';
 		}
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/sleep/${duration}`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/sleep/${duration}`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	setRepeatMode(roomName, repeatMode, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/repeat/${repeatMode}`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/repeat/${repeatMode}`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	enableShuffle(roomName, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/shuffle/on`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/shuffle/on`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	disableShuffle(roomName, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/shuffle/off`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/shuffle/off`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	enableCrossfade(roomName, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/crossfade/on`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/crossfade/on`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 
 	disableCrossfade(roomName, callback) {
-		http.get(`http://${Homey.app.host}:${Homey.app.port}/${roomName}/crossfade/off`, (error, response) => {
-			callback(error, !!error ? null : JSON.parse(response))
+		sonos_api.fakeRequest(`/${roomName}/crossfade/off`, (error, response) => {
+			callback(error, !!error ? null : response)
 		})
 	}
 }

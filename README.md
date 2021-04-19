@@ -2,11 +2,14 @@
 
 Let's you broadcast text to your Sonos system
 
-V3.1.5
+V4.0.0
 * Fixed app manifest
 * Fixed german translations
 * Fix s.t searching in the speaker dropdowns work
 * Sort speakers in all dropdowns
+* Do not setup an entire http server and instead use the library directly which is more efficient and less error prone - and works with sdk>=3
+* Removed unnecessary files
+* Upgraded sdk to v5 to be ready for the future
 
 V3.1.4
 * Reduced filesize by removing some unwanted options
