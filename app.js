@@ -8,11 +8,6 @@ class SonosSay extends Homey.App {
 
 	onInit() {
 		this.log('SonosSay is running...');
-
-		// Use local node-http
-		this.host = "0.0.0.0";
-		this.port = "5005";
-
 		this.initializeActions();
 	}
 
