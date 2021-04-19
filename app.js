@@ -2,6 +2,7 @@
 
 const Homey = require('homey');
 const { http } = require('./nbhttp');
+const server = require('./node-sonos-http-api-master/server');
 
 class SonosSay extends Homey.App {
 
@@ -13,6 +14,13 @@ class SonosSay extends Homey.App {
 		this.port = "5005";
 
 		this.initializeActions();
+		this.initializeServer();
+	}
+
+	initializeServer() {
+		console.log('Initialize Server for node-sonos');
+		let _server = server;
+		_server.
 	}
 
 	initializeActions() {
