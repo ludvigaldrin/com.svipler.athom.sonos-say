@@ -1,8 +1,8 @@
 {
   "id": "com.svipler.athom.sonos-say",
   "version": "3.1.5",
-  "compatibility": ">=1.5.0",
-  "sdk": 2,
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
   "name": {
     "en": "Sonos Say",
     "de": "Sonos sag"

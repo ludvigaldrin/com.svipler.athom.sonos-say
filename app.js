@@ -16,9 +16,8 @@ class SonosSay extends Homey.App {
 		var actionsCards = {};
 		for (let actionCardIndex = 0; actionCardIndex < this.manifest.flow.actions.length; actionCardIndex++) {
 			const actionCard = this.manifest.flow.actions[actionCardIndex];
-			var card = new Homey.FlowCardAction(actionCard.id);
+			var card = this.homey.flow.getActionCard(actionCard.id);
 			actionsCards[actionCard.id] = card;
-			card.register();
 
 			if (actionCard.args) {
 				if (actionCard.args.find(x => x.name == 'speaker' && x.type == 'autocomplete')) card.getArgument('speaker').registerAutocompleteListener((query, args) => {
