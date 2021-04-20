@@ -9,7 +9,7 @@ V4.0.0
 * Sort speakers in all dropdowns
 * Do not setup an entire http server and instead use the library directly which is more efficient and less error prone - and works with sdk>=3
 * Removed unnecessary files
-* Upgraded sdk to v5 to be ready for the future
+* Upgraded sdk to v3 to be ready for the future
 
 V3.1.4
 * Reduced filesize by removing some unwanted options

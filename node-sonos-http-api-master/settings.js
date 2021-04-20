@@ -30,11 +30,9 @@ merge(settings, userSettings);
 
 logger.debug(settings);
 
-
 if (!fs.existsSync(settings.cacheDir + '/')) {
   fs.mkdirSync(settings.cacheDir + '/');
 }
-
 
 if (!fs.existsSync(settings.webroot + '/')) {
   fs.mkdirSync(settings.webroot + '/');
