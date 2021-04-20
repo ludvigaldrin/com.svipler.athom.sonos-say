@@ -1,0 +1,21 @@
+{
+  "id": "action_sonos_enable_shuffle",
+  "title": {
+    "en": "Enable shuffle",
+    "de": "Zufallswiedergabe einschalten"
+  },
+  "titleFormatted": {
+    "en": "Enable shuffle on [[speaker]]",
+    "de": "Zufallswiedergabe für [[speaker]] einschalten"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    }
+  ]
+}

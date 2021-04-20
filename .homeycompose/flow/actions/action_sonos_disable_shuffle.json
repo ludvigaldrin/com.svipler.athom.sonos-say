@@ -1,0 +1,21 @@
+{
+  "id": "action_sonos_disable_shuffle",
+  "title": {
+    "en": "Disable shuffle",
+    "de": "Zufallswiedergabe ausschalten"
+  },
+  "titleFormatted": {
+    "en": "Disable shuffle on [[speaker]]",
+    "de": "Zufallswiedergabe für [[speaker]] ausschalten"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    }
+  ]
+}

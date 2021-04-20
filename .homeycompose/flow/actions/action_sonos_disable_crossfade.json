@@ -1,0 +1,21 @@
+{
+  "id": "action_sonos_disable_crossfade",
+  "title": {
+    "en": "Disable crossfade",
+    "de": "Überblenden ausschalten"
+  },
+  "titleFormatted": {
+    "en": "Disable crossfade on [[speaker]]",
+    "de": "Überblenden für [[speaker]] ausschalten"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    }
+  ]
+}

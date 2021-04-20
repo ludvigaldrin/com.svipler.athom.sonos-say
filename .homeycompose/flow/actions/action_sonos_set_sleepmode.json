@@ -1,0 +1,31 @@
+{
+  "id": "action_sonos_set_sleepmode",
+  "title": {
+    "en": "Set sleepmode",
+    "de": "Schlummermodus einstellen"
+  },
+  "titleFormatted": {
+    "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]",
+    "de": "Schlummermodus nach [[timeout]] Sekunden auf [[speaker]] einstellen"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    },
+    {
+      "type": "number",
+      "name": "timeout",
+      "placeholder": {
+        "en": "Duration in seconds or 0 to disable",
+        "de": "Dauer in sekunden oder 0 zum deaktivieren"
+      },
+      "min": 0,
+      "step": 1
+    }
+  ]
+}
