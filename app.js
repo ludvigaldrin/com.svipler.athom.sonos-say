@@ -2,12 +2,36 @@
 
 const Homey = require('homey');
 const sonos_api = require('./node-sonos-http-api-master/sonos_api');
+const fs = require('fs');
+const path = require('path');
 
 class SonosSay extends Homey.App {
 
 	onInit() {
 		this.log('SonosSay is running...');
 		this.initializeActions();
+
+		this.log('Listing local files');
+		try {
+			this.readFiles('/userdata/');
+		} catch (err) {
+			this.log('Listing local files failed', error);
+		}
+	}
+
+	readFiles(folder) {
+		fs.readdir(folder, (err, fileNames) => {
+			if (fileNames) {
+				fileNames.forEach(fileName => {
+					let fileStats = fs.statSync(folder + fileName);
+					if (fileStats.isFile()) {
+						this.log(folder + fileName + '(' + fileStats.size + ' bytes)');
+					} else if (fileStats.isDirectory()) {
+						this.readFiles(folder + fileName + '/');
+					}
+				});
+			}
+		});
 	}
 
 	initializeActions() {
@@ -186,6 +210,16 @@ class SonosSay extends Homey.App {
 			});
 		});
 
+		actionsCards['action_clear_cache'].registerRunListener((args, state) => {
+			return new Promise((resolve, reject) => {
+				this.clearCache((error, result) => {
+					if (error) { reject(error); } else {
+						resolve(true);
+					}
+				});
+			});
+		});
+
 	}
 
 	getSpeakersList(callback) {
@@ -279,6 +313,37 @@ class SonosSay extends Homey.App {
 			callback(error, !!error ? null : response)
 		})
 	}
+
+	clearCache(callback) {
+
+		const directory = '/userdata/static/tts/';
+
+		fs.readdir(directory, (err, files) => {
+			if (err) {
+				callback(err, null);
+				return;
+			}
+
+			for (const file of files) {
+				fs.unlink(path.join(directory, file), err => {
+					if (err) {
+						callback(err, null);
+						return;
+					}
+				});
+			}
+		});
+
+		this.log('Listing local files');
+		try {
+			this.readFiles('/userdata/');
+		} catch (err) {
+			this.log('Listing local files failed', error);
+		}
+
+		callback(null, {});
+	}
+
 }
 
 module.exports = SonosSay;
