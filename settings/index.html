@@ -1,0 +1,108 @@
+<html>
+
+<head>
+    <!--<script type="text/javascript" src="/homey.js" data-origin="settings"></script>-->
+    <script src='https://cdn.staticaly.com/gh/robertklep/homey-mocks/v0.0.4/homey-settings-mock.js'></script>
+
+    <!--<script src="js/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="homeyAnimation"></div>
+
+    <nav>
+        <div class="nav nav-tabs glass-dark" id="nav-tab" role="tablist"
+            style="margin-left: 5px; margin-top: 5px; margin-right: 5px;">
+            <a class="nav-item nav-link active" id="nav-clips-tab" data-toggle="tab" href="#nav-clips" role="tab"
+                aria-controls="nav-clips" aria-selected="true"
+                style="border-top-left-radius: 3px; border-bottom-left-radius: 3px;">Audio Clips</a>
+            <a class="nav-item nav-link" id="nav-cache-tab" data-toggle="tab" href="#nav-cache" role="tab"
+                aria-controls="nav-cache" aria-selected="false">Cache</a>
+            <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab"
+                aria-controls="nav-about" aria-selected="false">About</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-clips" role="tabpanel" aria-labelledby="nav-clips-tab">
+
+            <!--clips tab begin-->
+            <div class="card glass" style="margin-top: 10px;">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" id="clipCollection">
+                    </ul>
+                </div>
+            </div>
+            <!--clips tab end-->
+
+        </div>
+
+        <div class="tab-pane fade show" id="nav-cache" role="tabpanel" aria-labelledby="nav-cache-tab">
+
+            <!--cache tab begin-->
+            <div class="card glass" style="margin-top: 10px;">
+                <div class="card-body">
+                    <ul class="list-group list-group-flush" id="clipCollection">
+                    </ul>
+                </div>
+            </div>
+            <!--cache tab end-->
+
+        </div>
+
+        <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+
+            <!--about tab begin-->
+            <div class="card glass" style="margin-top: 10px;">
+                <img class="card-img-top" src="images/icon.svg"
+                    style="padding-left: 20%; padding-right: 20%; padding-top: 35px;padding-bottom: 15px;">
+                <div class="sk-cube-grid" style="margin:10% auto">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Sonos Say for Homey v4.0.0</h5>
+                    <h3 class="card-title">By ludvigaldrin (Ludvig Aldrin), XeroxQ (Arie J. Godschalk) and MadMonkey87
+                        (Philippe Wechsler)</h3>
+                </div>
+            </div>
+
+            <!--about tab end-->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        function onHomeyReady(Homey) {
+
+            if (Homey.isMock) {
+                Homey.alert('Warning: Homey is mocked only!!!');
+            }
+
+            Homey.ready();
+        }
+
+    </script>
+</body>
+
+</html>
