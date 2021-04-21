@@ -2,6 +2,8 @@
 
 Let's you broadcast text to your Sonos system
 
+[![current version](https://img.shields.io/badge/version-4.0.0-<COLOR>.svg)](https://shields.io/)
+
 V4.0.0
 * Fixed app manifest
 * Fixed german translations
@@ -11,6 +13,8 @@ V4.0.0
 * Removed unnecessary files
 * Upgraded sdk to v3 to be ready for the future
 * Flow card to delete the cache if necessary
+* App config to upload audio clips to homey
+* Flow card to play audio clips
 
 V3.1.4
 * Reduced filesize by removing some unwanted options
@@ -54,5 +58,5 @@ V1.0.0
 Special thanks to Arie J. Godschalk who made Version 3 serverless
 https://github.com/XeroxQ
 
-Special thanks to MadMonkey87 who made most of Version 2
+Special thanks to MadMonkey87 who made most of Version 2 and 4
 https://github.com/MadMonkey87/

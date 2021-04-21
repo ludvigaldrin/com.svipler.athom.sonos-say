@@ -43,15 +43,17 @@ class SonosSay extends Homey.App {
 			actionsCards[actionCard.id] = card;
 
 			if (actionCard.args) {
+
 				if (actionCard.args.find(x => x.name == 'speaker' && x.type == 'autocomplete')) card.getArgument('speaker').registerAutocompleteListener((query, args) => {
-					return new Promise((resolve) => {
+					return new Promise((resolve, reject) => {
 						this.getSpeakersList((error, speakers) => {
 							if (error) {
-								return this.error(error);
+								reject(error);
+								return;
 							}
 							let result = [];
 
-							if (['action_sonos_say', 'action_sonos_say_url'].indexOf(actionCard.id) > -1) result.push({ name: 'All Speakers', id: '-' });
+							if (['action_sonos_say', 'action_sonos_say_url', 'action_sonos_play_clip'].indexOf(actionCard.id) > -1) result.push({ name: 'All Speakers', id: '-' });
 							if (speakers.status == "error") {
 								result.push({ name: "Something went wrong, please try again!", id: "NA" });
 							} else {
@@ -65,6 +67,29 @@ class SonosSay extends Homey.App {
 							result.sort((i, j) => ('' + i.name).localeCompare(j.name));
 							resolve(result);
 						})
+					});
+				});
+
+				if (actionCard.args.find(x => x.name == 'clip' && x.type == 'autocomplete')) card.getArgument('clip').registerAutocompleteListener((query, args) => {
+					return new Promise((resolve, reject) => {
+						try {
+							const folder = '/userdata/static/clips';
+							fs.readdir(folder, (err, fileNames) => {
+								let result = [];
+								if (fileNames) {
+									fileNames.forEach(fileName => {
+										let fileStats = fs.statSync(folder + fileName);
+										if (fileStats.isFile() && (!query || fileName.toLowerCase().includes(query.toLowerCase()))) {
+											result.push({ name: fileName });
+										}
+									});
+								}
+								result.sort((i, j) => ('' + i.name).localeCompare(j.name));
+								resolve(result);
+							});
+						} catch (err) {
+							reject(err);
+						}
 					});
 				});
 			}
@@ -220,6 +245,25 @@ class SonosSay extends Homey.App {
 			});
 		});
 
+		actionsCards['action_sonos_play_clip'].registerRunListener((args, state) => {
+			if (args.speaker.id === '-') {
+				return new Promise((resolve, reject) => {
+					this.playClipAll(args.clip.name, args.volume, (error, result) => {
+						if (error) { reject(error); } else {
+							resolve(true);
+						}
+					})
+				});
+			} else {
+				return new Promise((resolve, reject) => {
+					this.playClip(args.speaker.id, args.clip.name, args.volume, (error, result) => {
+						if (error) { reject(error); } else {
+							resolve(true);
+						}
+					})
+				});
+			}
+		});
 	}
 
 	getSpeakersList(callback) {
@@ -239,6 +283,7 @@ class SonosSay extends Homey.App {
 			callback(error, !!error ? null : response)
 		})
 	}
+
 	sayAllUrl(url, volume, duration, callback) {
 		sonos_api.fakeRequest(`/sayallurl/${Buffer.from(url).toString('base64')}/${volume}/${duration}`, (error, response) => {
 			callback(error, !!error ? null : response)
@@ -310,6 +355,18 @@ class SonosSay extends Homey.App {
 
 	disableCrossfade(roomName, callback) {
 		sonos_api.fakeRequest(`/${roomName}/crossfade/off`, (error, response) => {
+			callback(error, !!error ? null : response)
+		})
+	}
+
+	playClip(roomName, filename, volume, callback) {
+		sonos_api.fakeRequest(`/${roomName}/clip/${encodeURI(filename)}/${volume}`, (error, response) => {
+			callback(error, !!error ? null : response)
+		})
+	}
+
+	playClipAll(filename, volume, callback) {
+		sonos_api.fakeRequest(`/clipall/${encodeURI(filename)}/${volume}`, (error, response) => {
 			callback(error, !!error ? null : response)
 		})
 	}

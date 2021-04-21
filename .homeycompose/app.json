@@ -21,7 +21,7 @@
         "name": "Ludvig Aldrin"
       },
       {
-        "name": "MadMonkey87"
+        "name": "Philippe Wechsler"
       },
       {
         "name": "Rune Moskvil Lyngås"
@@ -44,5 +44,37 @@
   "author": {
     "name": "Ludvig Aldrin",
     "email": "ludvig.aldrin@gmail.com"
+  },
+  "api": {
+    "getClips": {
+      "method": "GET",
+      "path": "/clips",
+      "public": false
+    },
+    "getClip": {
+      "method": "GET",
+      "path": "/clip",
+      "public": false
+    },
+    "addClip": {
+      "method": "POST",
+      "path": "/clip",
+      "public": false
+    },
+    "removeClip": {
+      "method": "DELETE",
+      "path": "/clip",
+      "public": false
+    },
+    "getCache": {
+      "method": "GET",
+      "path": "/cache",
+      "public": false
+    },
+    "clearCache": {
+      "method": "DELETE",
+      "path": "/cache",
+      "public": false
+    }
   }
 }
