@@ -9,6 +9,8 @@ const fileServer = new nodeStatic.Server(settings.webroot);
 const discovery = new SonosSystem(settings);
 const sonos_api = new SonosHttpAPI(discovery, settings);
 
+// setting up file server for sonos to receive the audio files
+
 var requestHandler = function (req, res) {
     req.addListener('end', function () {
         fileServer.serve(req, res, function (err) {

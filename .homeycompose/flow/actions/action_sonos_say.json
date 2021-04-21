@@ -5,8 +5,8 @@
     "de": "Text zu Sprache"
   },
   "titleFormatted": {
-    "en": "Say [[text]] on [[speaker]], [[volume]] volume in [[language]]",
-    "de": "Sage [[text]] auf [[speaker]], mit [[volume]] Lautstärke in [[language]]"
+    "en": "Say [[text]] on [[speaker]] with [[volume]] volume in [[language]]",
+    "de": "Sage [[text]] auf [[speaker]] mit [[volume]] Lautstärke in [[language]]"
   },
   "args": [
     {

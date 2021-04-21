@@ -5,8 +5,8 @@
     "de": "Durchsage senden (url)"
   },
   "titleFormatted": {
-    "en": "Send [[url]](URL) as announcement on [[speaker]], [[volume]] volume, [[durationAudio]] ms duration",
-    "de": "Sende [[url]](URL) als Durchsage an [[speaker]], mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
+    "en": "Send [[url]](URL) as announcement on [[speaker]] with [[volume]] volume, [[durationAudio]] ms duration",
+    "de": "Sende [[url]](URL) als Durchsage an [[speaker]] mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
   },
   "args": [
     {
