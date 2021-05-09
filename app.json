@@ -22,7 +22,7 @@
         "name": "Ludvig Aldrin"
       },
       {
-        "name": "MadMonkey87"
+        "name": "Philippe Wechsler"
       },
       {
         "name": "Rune Moskvil Lyngås"
@@ -45,6 +45,38 @@
   "author": {
     "name": "Ludvig Aldrin",
     "email": "ludvig.aldrin@gmail.com"
+  },
+  "api": {
+    "getClips": {
+      "method": "GET",
+      "path": "/clips",
+      "public": false
+    },
+    "getClip": {
+      "method": "GET",
+      "path": "/clip",
+      "public": false
+    },
+    "addClip": {
+      "method": "POST",
+      "path": "/clip",
+      "public": false
+    },
+    "removeClip": {
+      "method": "DELETE",
+      "path": "/clip",
+      "public": false
+    },
+    "getCache": {
+      "method": "GET",
+      "path": "/cache",
+      "public": false
+    },
+    "clearCache": {
+      "method": "DELETE",
+      "path": "/cache",
+      "public": false
+    }
   },
   "flow": {
     "actions": [
@@ -173,14 +205,61 @@
         "args": []
       },
       {
+        "id": "action_sonos_play_clip",
+        "title": {
+          "en": "Play a audio clip",
+          "de": "Spiele ein Audioclip"
+        },
+        "hint": {
+          "en": "Please go to the app configuration to upload a clip to homey first",
+          "de": "Bitte verwende die Appkonfiguration um Audioclips auf deinem Homey zu speichern"
+        },
+        "titleFormatted": {
+          "en": "Play [[clip]] on [[speaker]] with [[volume]] volume",
+          "de": "Play [[clip]] auf [[speaker]] mit [[volume]] Lautstärke"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "clip",
+            "placeholder": {
+              "en": "Search for audio clips...",
+              "de": "Suche nach Audioclips..."
+            }
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "placeholder": {
+              "en": "volume",
+              "de": "Lautstärke"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "%",
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
         "id": "action_sonos_say",
         "title": {
           "en": "Text to Speech",
           "de": "Text zu Sprache"
         },
         "titleFormatted": {
-          "en": "Say [[text]] on [[speaker]], [[volume]] volume in [[language]]",
-          "de": "Sage [[text]] auf [[speaker]], mit [[volume]] Lautstärke in [[language]]"
+          "en": "Say [[text]] on [[speaker]] with [[volume]] volume in [[language]]",
+          "de": "Sage [[text]] auf [[speaker]] mit [[volume]] Lautstärke in [[language]]"
         },
         "args": [
           {
@@ -406,8 +485,8 @@
           "de": "Durchsage senden (url)"
         },
         "titleFormatted": {
-          "en": "Send [[url]](URL) as announcement on [[speaker]], [[volume]] volume, [[durationAudio]] ms duration",
-          "de": "Sende [[url]](URL) als Durchsage an [[speaker]], mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
+          "en": "Send [[url]](URL) as announcement on [[speaker]] with [[volume]] volume, [[durationAudio]] ms duration",
+          "de": "Sende [[url]](URL) als Durchsage an [[speaker]] mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
         },
         "args": [
           {

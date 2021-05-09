@@ -1,15 +1,9 @@
 module.exports = {
 	async getClips({ homey, params, query, body }) {
-		homey.app.getClips((err, result) => {
-			return {
-				success: err == null,
-				error: err,
-				result: result
-			};
-		})
+		return await homey.app.getClips();
 	},
 	async addClip({ homey, params, query, body }) {
-		homey.app.addClip(body, (err, result) => {
+		await homey.app.addClip(body, (err, result) => {
 			return {
 				success: err == null,
 				error: err,
@@ -18,7 +12,7 @@ module.exports = {
 		})
 	},
 	async removeClip({ homey, params, query, body }) {
-		homey.app.removeClip(query, (err, result) => {
+		await homey.app.removeClip(query, (err, result) => {
 			return {
 				success: err == null,
 				error: err,
@@ -27,7 +21,7 @@ module.exports = {
 		})
 	},
 	async getCache({ homey, params, query, body }) {
-		homey.app.getCache((err, result) => {
+		await homey.app.getCache((err, result) => {
 			return {
 				success: err == null,
 				error: err,
@@ -36,7 +30,7 @@ module.exports = {
 		})
 	},
 	async clearCache({ homey, params, query, body }) {
-		homey.app.clearCache((err, result) => {
+		await homey.app.clearCache((err, result) => {
 			return {
 				success: err == null,
 				error: err,

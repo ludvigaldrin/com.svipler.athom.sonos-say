@@ -27,6 +27,7 @@ class SonosSay extends Homey.App {
 					if (fileStats.isFile()) {
 						this.log(folder + fileName + '(' + fileStats.size + ' bytes)');
 					} else if (fileStats.isDirectory()) {
+						this.log(folder + fileName + '(dir)');
 						this.readFiles(folder + fileName + '/');
 					}
 				});
@@ -401,6 +402,52 @@ class SonosSay extends Homey.App {
 		callback(null, {});
 	}
 
+	getClips() {
+		let result = [];
+		const folder = '/userdata/static/clips';
+		try {
+			const fileNames = fs.readdirSync(folder);
+			if (fileNames) {
+				fileNames.forEach(fileName => {
+					let fileStats = fs.statSync(folder + '/' + fileName);
+					if (fileStats.isFile()) {
+						result.push({ name: fileName, size: fileStats.size });
+					}
+				});
+			}
+			result = result.sort((i, j) => ('' + i.name).localeCompare(j.name));
+			this.log(JSON.stringify(result));
+		} catch (err) {
+			this.log(err);
+		}
+		return result;
+	}
+
+	addClip(body, callback) {
+		try {
+			const foldername = '/userdata/static/clips';
+			if (!fs.existsSync(foldername)) {
+				this.log('create folder', foldername);
+				fs.mkdirSync(foldername);
+			}
+
+			const buffer = Buffer.from(body.content.split(',')[1], 'base64');
+			const filename = foldername + '/' + body.name;
+
+			this.log('attempt to write file', filename);
+			if (fs.existsSync(filename)) {
+				callback('the file exists already', null);
+			} else {
+				fs.writeFile(filename, buffer, () => {
+					this.log('wrote content to file', filename);
+					callback(null, { foo: 'bar' });
+				});
+			}
+		} catch (err) {
+			this.log('error writing file', err);
+			callback(err, null);
+		}
+	}
 }
 
 module.exports = SonosSay;

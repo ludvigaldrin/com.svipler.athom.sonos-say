@@ -9081,3 +9081,7 @@ input[type="checkbox"]:not(.hy-nostyle), .hy-input-checkbox{
 label{
   padding-top: 3px !important;
 }
+
+.modal-dialog .sk-cube-grid{
+  margin-top: 25%;
+}
