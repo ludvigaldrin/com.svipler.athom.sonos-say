@@ -100,8 +100,9 @@
             <div class="card glass" style="margin-top: 10px;">
                 <div class="card-body">
 
-                    <p class="card-text">TODO</p>
-
+                    <p class="card-text">Upload small audio clips here (mp3) and play them later on your Sonos. The
+                        files are stored on your Homey.</p>
+                    <p id="clipInfos"></p>
                     <div class="row">
                         <div class="col-sm">
                             <button type="button" class="btn btn-primary float-right" id="createClipModalButton"
@@ -217,35 +218,57 @@
 
                 Homey.addRoutes([
                     {
-                        method: 'get',
+                        method: 'GET',
                         path: '/clips',
                         fn: function (args, callback) {
-                            return callback(null, [{name:"clip1.mp3"}]);
+                            return callback(null, [{ name: "clip1.mp3", size: 1234 }, { name: "clip2.mp3", size: 1234 }, { name: "clip3.mp3", size: 1234 }]);
                         }
                     },
                 ]);
             }
 
             function updateClips() {
-                Homey.api('GET','/clips', (err, result) => {
+                Homey.api('GET', '/clips', (err, result) => {
                     if (err) return Homey.alert(err);
                     if (result) {
                         let collectionMarkup = '';
+                        let totalSize = 0;
                         for (var i = 0; i < result.length; i++) {
                             collectionMarkup += `
-                        <li class="list-group-item transparent">
-                            <div class="form-group">
-                                <label style="font-weight: bold; font-size: 18px; margin-top: 5px">${result[i].name}</label>
-                                <button type="button" class="btn btn-secondary float-right" style="margin-top: 25px; height: 42px; width: 42px"><span
-                                        class="fa fa-trash" onclick="removeClip(${result[i].name})"></span></button>
-                                        <small class="form-text text-muted">${result[i].name}</small>
-                            </div>
-                        </li>
-                    `;
+                                <li class="list-group-item transparent">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold; font-size: 18px; margin-top: 5px">${result[i].name}</label>
+                                        <div class="btn-group float-right">
+                                            <button type="button" class="btn btn-primary" onclick="downloadClip('${result[i].name}')" style="margin-top: 25px; height: 42px; width: 42px"><span
+                                                class="fa fa-download"></span></button>
+                                            <button type="button" class="btn btn-secondary" onclick="removeClip('${result[i].name}')" style="margin-top: 25px; height: 42px; width: 42px"><span
+                                                class="fa fa-trash"></span></button>
+                                        </div>
+                                        <small class="form-text text-muted">${bytesToSize(result[i].size)}</small>
+                                    </div>
+                                </li>
+                            `;
+                            totalSize += result[i].size;
                         }
+                        document.getElementById('clipInfos').innerHTML = `${result.length} clips, ${bytesToSize(totalSize)}`;
                         document.getElementById('clipCollection').innerHTML = collectionMarkup;
                     }
                 });
+            }
+
+            window.removeClip = function (e) {
+                alert(e);
+            }
+
+            window.downloadClip = function (e) {
+                Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/backup'));
+            }
+
+            function bytesToSize(bytes) {
+                var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                if (bytes == 0) return '0 Byte';
+                var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
             }
 
             Homey.ready();

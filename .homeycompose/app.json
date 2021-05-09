@@ -54,7 +54,7 @@
     "getClip": {
       "method": "GET",
       "path": "/clip",
-      "public": false
+      "public": true
     },
     "addClip": {
       "method": "POST",
