@@ -1,9 +1,9 @@
 module.exports = {
 	async getClips({ homey, params, query, body }) {
-		return await homey.app.getClips();
+		return homey.app.getClips();
 	},
 	async getClip({ homey, params, query, body }) {
-		return await homey.app.getClip(query.name);
+		return homey.app.getClip(query.name);
 	},
 	async addClip({ homey, params, query, body }) {
 		await homey.app.addClip(body, (err, result) => {

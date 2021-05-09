@@ -426,7 +426,7 @@ class SonosSay extends Homey.App {
 	getClip(name) {
 		const folder = '/userdata/static/clips';
 		let content = fs.readFileSync(folder + '/' + name, { encoding: 'base64' });
-		return { name: name, type: 'audio/mpeg', content: data }
+		return { name: name, type: 'audio/mpeg', content: content }
 	}
 
 	removeClip(name) {
