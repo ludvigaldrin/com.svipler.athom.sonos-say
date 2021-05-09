@@ -14,7 +14,7 @@ V4.0.0
 * Upgraded sdk to v3 to be ready for the future
 * Flow card to delete the cache if necessary
 * App config to upload audio clips to homey
-* Flow card to play audio clips
+* Flow card to play (random) audio clips
 
 V3.1.4
 * Reduced filesize by removing some unwanted options

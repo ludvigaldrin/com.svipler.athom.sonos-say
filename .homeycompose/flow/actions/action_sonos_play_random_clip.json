@@ -1,16 +1,16 @@
 {
-  "id": "action_sonos_play_clip",
+  "id": "action_sonos_play_random_clip",
   "title": {
-    "en": "Play a audio clip",
-    "de": "Spiele ein Audioclip"
+    "en": "Play a random audio clip",
+    "de": "Spiele einen zufälligen Audioclip"
   },
   "hint": {
     "en": "Please go to the app configuration to upload a clip to homey first",
     "de": "Bitte verwende die Appkonfiguration um Audioclips auf deinem Homey zu speichern"
   },
   "titleFormatted": {
-    "en": "Play [[clip]] on [[speaker]] with [[volume]] volume",
-    "de": "Spiele [[clip]] auf [[speaker]] mit [[volume]] Lautstärke"
+    "en": "Play a random clip on [[speaker]] with [[volume]] volume",
+    "de": "Spiele einen zufälligen clip auf [[speaker]] mit [[volume]] Lautstärke"
   },
   "args": [
     {
@@ -19,14 +19,6 @@
       "placeholder": {
         "en": "Search for speakers...",
         "de": "Suche nach Lautsprechern..."
-      }
-    },
-    {
-      "type": "autocomplete",
-      "name": "clip",
-      "placeholder": {
-        "en": "Search for audio clips...",
-        "de": "Suche nach Audioclips..."
       }
     },
     {

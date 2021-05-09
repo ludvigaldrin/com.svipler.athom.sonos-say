@@ -265,6 +265,28 @@ class SonosSay extends Homey.App {
 				});
 			}
 		});
+
+		actionsCards['action_sonos_play_random_clip'].registerRunListener((args, state) => {
+			let clips = this.getClips();
+			let clip = clips[Math.floor(Math.random() * clips.length)].name;
+			if (args.speaker.id === '-') {
+				return new Promise((resolve, reject) => {
+					this.playClipAll(clip, args.volume, (error, result) => {
+						if (error) { reject(error); } else {
+							resolve(true);
+						}
+					})
+				});
+			} else {
+				return new Promise((resolve, reject) => {
+					this.playClip(args.speaker.id, clip, args.volume, (error, result) => {
+						if (error) { reject(error); } else {
+							resolve(true);
+						}
+					})
+				});
+			}
+		});
 	}
 
 	getSpeakersList(callback) {
