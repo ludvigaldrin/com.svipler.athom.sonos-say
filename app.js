@@ -79,7 +79,7 @@ class SonosSay extends Homey.App {
 								let result = [];
 								if (fileNames) {
 									fileNames.forEach(fileName => {
-										let fileStats = fs.statSync(folder + fileName);
+										let fileStats = fs.statSync(folder + '/' + fileName);
 										if (fileStats.isFile() && (!query || fileName.toLowerCase().includes(query.toLowerCase()))) {
 											result.push({ name: fileName });
 										}
