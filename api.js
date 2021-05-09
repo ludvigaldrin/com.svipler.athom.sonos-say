@@ -15,7 +15,7 @@ module.exports = {
 		})
 	},
 	async removeClip({ homey, params, query, body }) {
-		await homey.app.removeClip(query, (err, result) => {
+		await homey.app.removeClip(query.name, (err, result) => {
 			return {
 				success: err == null,
 				error: err,
