@@ -124,7 +124,8 @@
             <!--cache tab begin-->
             <div class="card glass" style="margin-top: 10px;">
                 <div class="card-body">
-                    <p class="card-text">Todo</p>
+                    <p class="card-text">Whenever you use text-to-speech an audio file gets generated and stored locally
+                        on your homey. If the app uses too much storage you can clear the audio cache.</p>
                     <p id="cacheInfos"></p>
                     <div class="row">
                         <div class="col-sm">
@@ -300,6 +301,17 @@
                         Homey.api('DELETE', '/clip?name=' + e, (err, result) => {
                             if (err) return Homey.alert(err);
                             updateClips();
+                        });
+                    }
+                });
+            }
+
+            window.removeCacheItem = function (e) {
+                Homey.confirm('Do you really want to remove this cache item?', 'warning', (e1, e2) => {
+                    if (e2 === true) {
+                        Homey.api('DELETE', '/cacheItem?name=' + e, (err, result) => {
+                            if (err) return Homey.alert(err);
+                            updateCache();
                         });
                     }
                 });
