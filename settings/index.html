@@ -182,6 +182,7 @@
             const clipSaveButton = document.getElementById('clipSaveButton');
             const clipCancelButton = document.getElementById('clipCancelButton');
             const clipCollection = document.getElementById('clipCollection');
+            const clearCacheButton = document.getElementById('clearCacheButton');
 
             let selectedClip;
 
@@ -236,6 +237,17 @@
                     },
                 ]);
             }
+
+            clearCacheButton.addEventListener('click', (e) => {
+                Homey.confirm('Do you really want to clear the cache', 'warning', (e1, e2) => {
+                    if (e2 === true) {
+                        Homey.api('DELETE', '/cache', (err, result) => {
+                            if (err) return Homey.alert(err);
+                            updateCache();
+                        });
+                    }
+                });
+            });
 
             function updateClips() {
                 Homey.api('GET', '/clips', (err, result) => {

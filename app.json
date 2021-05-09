@@ -75,6 +75,11 @@
     "getCacheItem": {
       "method": "GET",
       "path": "/cacheItem",
+      "public": true
+    },
+    "removeCacheItem": {
+      "method": "DELETE",
+      "path": "/cacheItem",
       "public": false
     },
     "clearCache": {
