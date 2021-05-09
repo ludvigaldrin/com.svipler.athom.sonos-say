@@ -99,7 +99,6 @@
             <!--clips tab begin-->
             <div class="card glass" style="margin-top: 10px;">
                 <div class="card-body">
-
                     <p class="card-text">Upload small audio clips here (mp3) and play them later on your Sonos. The
                         files are stored on your Homey.</p>
                     <p id="clipInfos"></p>
@@ -125,6 +124,16 @@
             <!--cache tab begin-->
             <div class="card glass" style="margin-top: 10px;">
                 <div class="card-body">
+                    <p class="card-text">Todo</p>
+                    <p id="cacheInfos"></p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary float-right" id="clearCacheButton"
+                                style="width: 125px;">Clear Cache</button>
+                        </div>
+                    </div>
+                    <br>
+
                     <ul class="list-group list-group-flush" id="cacheCollection">
                     </ul>
                 </div>
@@ -256,6 +265,35 @@
                 });
             }
 
+            function updateCache() {
+                Homey.api('GET', '/cache', (err, result) => {
+                    if (err) return Homey.alert(err);
+                    if (result) {
+                        let collectionMarkup = '';
+                        let totalSize = 0;
+                        for (var i = 0; i < result.length; i++) {
+                            collectionMarkup += `
+                                <li class="list-group-item transparent">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold; font-size: 18px; margin-top: 5px; margin-bottom:5px;">${result[i].name}</label>
+                                        <div class="btn-group float-right" style="margin-top: 25px; height: 42px;" >
+                                            <button type="button" class="btn btn-primary" onclick="downloadCacheItem('${result[i].name}')" style="width: 42px"><span
+                                                class="fa fa-download"></span></button>
+                                            <button type="button" class="btn btn-secondary" onclick="removeCacheItem('${result[i].name}')" style="width: 42px"><span
+                                                class="fa fa-trash"></span></button>
+                                        </div>
+                                        <small class="form-text text-muted">${bytesToSize(result[i].size)}</small>
+                                    </div>
+                                </li>
+                            `;
+                            totalSize += result[i].size;
+                        }
+                        document.getElementById('cacheInfos').innerHTML = `${result.length} clips, ${bytesToSize(totalSize)}`;
+                        document.getElementById('cacheCollection').innerHTML = collectionMarkup;
+                    }
+                });
+            }
+
             window.removeClip = function (e) {
                 Homey.confirm('Do you really want to remove this audio clip?', 'warning', (e1, e2) => {
                     if (e2 === true) {
@@ -281,6 +319,7 @@
             Homey.ready();
 
             updateClips();
+            updateCache();
         }
 
     </script>

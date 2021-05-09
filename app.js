@@ -372,6 +372,26 @@ class SonosSay extends Homey.App {
 		})
 	}
 
+	getCache() {
+		let result = [];
+		const folder = '/userdata/static/tts/';
+		try {
+			const fileNames = fs.readdirSync(folder);
+			if (fileNames) {
+				fileNames.forEach(fileName => {
+					let fileStats = fs.statSync(folder + '/' + fileName);
+					if (fileStats.isFile()) {
+						result.push({ name: fileName, size: fileStats.size });
+					}
+				});
+			}
+			result = result.sort((i, j) => ('' + i.name).localeCompare(j.name));
+		} catch (err) {
+			this.log(err);
+		}
+		return result;
+	}
+
 	clearCache(callback) {
 
 		const directory = '/userdata/static/tts/';
@@ -416,7 +436,6 @@ class SonosSay extends Homey.App {
 				});
 			}
 			result = result.sort((i, j) => ('' + i.name).localeCompare(j.name));
-			this.log(JSON.stringify(result));
 		} catch (err) {
 			this.log(err);
 		}

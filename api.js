@@ -24,13 +24,7 @@ module.exports = {
 		})
 	},
 	async getCache({ homey, params, query, body }) {
-		await homey.app.getCache((err, result) => {
-			return {
-				success: err == null,
-				error: err,
-				result: result
-			};
-		})
+		return homey.app.getCache();
 	},
 	async clearCache({ homey, params, query, body }) {
 		await homey.app.clearCache((err, result) => {
