@@ -309,6 +309,10 @@
                 Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/clip?name=' + e));
             }
 
+            window.downloadCacheItem = function (e) {
+                Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/cacheItem?name=' + e));
+            }
+
             function bytesToSize(bytes) {
                 var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
                 if (bytes == 0) return '0 Byte';

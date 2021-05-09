@@ -392,6 +392,12 @@ class SonosSay extends Homey.App {
 		return result;
 	}
 
+	getCacheItem(name) {
+		const folder = '/userdata/static/tts/';
+		let content = fs.readFileSync(folder + '/' + name, { encoding: 'base64' });
+		return { name: name, type: 'audio/mpeg', content: content }
+	}
+
 	clearCache(callback) {
 
 		const directory = '/userdata/static/tts/';

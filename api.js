@@ -26,6 +26,9 @@ module.exports = {
 	async getCache({ homey, params, query, body }) {
 		return homey.app.getCache();
 	},
+	async getCacheItem({ homey, params, query, body }) {
+		return homey.app.getCacheItem(query.name);
+	},
 	async clearCache({ homey, params, query, body }) {
 		await homey.app.clearCache((err, result) => {
 			return {
