@@ -238,10 +238,10 @@
                                 <li class="list-group-item transparent">
                                     <div class="form-group">
                                         <label style="font-weight: bold; font-size: 18px; margin-top: 5px">${result[i].name}</label>
-                                        <div class="btn-group float-right">
-                                            <button type="button" class="btn btn-primary" onclick="downloadClip('${result[i].name}')" style="margin-top: 25px; height: 42px; width: 42px"><span
+                                        <div class="btn-group float-right" style="margin-top: 25px; height: 42px;" >
+                                            <button type="button" class="btn btn-primary" onclick="downloadClip('${result[i].name}')" style="width: 42px"><span
                                                 class="fa fa-download"></span></button>
-                                            <button type="button" class="btn btn-secondary" onclick="removeClip('${result[i].name}')" style="margin-top: 25px; height: 42px; width: 42px"><span
+                                            <button type="button" class="btn btn-secondary" onclick="removeClip('${result[i].name}')" style="width: 42px"><span
                                                 class="fa fa-trash"></span></button>
                                         </div>
                                         <small class="form-text text-muted">${bytesToSize(result[i].size)}</small>
@@ -259,7 +259,7 @@
             window.removeClip = function (e) {
                 Homey.confirm('Do you really want to remove this audio clip?', 'warning', (e1, e2) => {
                     if (e2 === true) {
-                        Homey.api('DELETE', '/clip?name' + e, (err, result) => {
+                        Homey.api('DELETE', '/clip?name=' + e, (err, result) => {
                             if (err) return Homey.alert(err);
                             updateClips();
                         });
@@ -268,7 +268,7 @@
             }
 
             window.downloadClip = function (e) {
-                Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/backup'));
+                Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/clip?name=' + e));
             }
 
             function bytesToSize(bytes) {
