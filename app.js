@@ -383,13 +383,13 @@ class SonosSay extends Homey.App {
 	}
 
 	playClip(roomName, filename, volume, callback) {
-		sonos_api.fakeRequest(`/${roomName}/clip/${encodeURI(filename)}/${volume}`, (error, response) => {
+		sonos_api.fakeRequest(`/${roomName}/clip/${filename}/${volume}`, (error, response) => {
 			callback(error, !!error ? null : response)
 		})
 	}
 
 	playClipAll(filename, volume, callback) {
-		sonos_api.fakeRequest(`/clipall/${encodeURI(filename)}/${volume}`, (error, response) => {
+		sonos_api.fakeRequest(`/clipall/${filename}/${volume}`, (error, response) => {
 			callback(error, !!error ? null : response)
 		})
 	}
