@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "anesidora": "^1.2.0",
-    "basic-auth": "~1.1.0",
     "fuse.js": "^6.4.1",
     "html-entities": "^1.2.1",
     "json5": "^0.5.1",
@@ -18,7 +17,6 @@
     "music-metadata": "^1.1.0",
     "node-static": "^0.7.9",
     "request-promise": "~1.0.2",
-    "sonos-discovery": "https://github.com/jishi/node-sonos-discovery/archive/v1.7.3.tar.gz",
-    "wav-file-info": "0.0.8"
+    "sonos-discovery": "https://github.com/jishi/node-sonos-discovery/archive/v1.7.3.tar.gz"
   }
 }

@@ -1,0 +1,356 @@
+<html>
+
+<head>
+    <script type="text/javascript" src="/homey.js" data-origin="settings"></script>
+    <!--<script src='https://cdn.staticaly.com/gh/robertklep/homey-mocks/v0.0.4/homey-settings-mock.js'></script>-->
+
+    <!--<script src="js/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+
+    <div class="homeyAnimation"></div>
+
+    <nav>
+        <div class="nav nav-tabs glass-dark" id="nav-tab" role="tablist"
+            style="margin-left: 5px; margin-top: 5px; margin-right: 5px;">
+            <a class="nav-item nav-link active" id="nav-clips-tab" data-toggle="tab" href="#nav-clips" role="tab"
+                aria-controls="nav-clips" aria-selected="true"
+                style="border-top-left-radius: 3px; border-bottom-left-radius: 3px;">Audio Clips</a>
+            <a class="nav-item nav-link" id="nav-cache-tab" data-toggle="tab" href="#nav-cache" role="tab"
+                aria-controls="nav-cache" aria-selected="false">Cache</a>
+            <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-about" role="tab"
+                aria-controls="nav-about" aria-selected="false">About</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-clips" role="tabpanel" aria-labelledby="nav-clips-tab">
+
+            <!-- clip modal  begin-->
+            <div class="modal fade" id="createClipModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+
+                        <div class="loading" id="clipFileLoading">
+                            <div class="sk-cube-grid">
+                                <div class="sk-cube sk-cube1"></div>
+                                <div class="sk-cube sk-cube2"></div>
+                                <div class="sk-cube sk-cube3"></div>
+                                <div class="sk-cube sk-cube4"></div>
+                                <div class="sk-cube sk-cube5"></div>
+                                <div class="sk-cube sk-cube6"></div>
+                                <div class="sk-cube sk-cube7"></div>
+                                <div class="sk-cube sk-cube8"></div>
+                                <div class="sk-cube sk-cube9"></div>
+                            </div>
+                        </div>
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Upload Clip</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label>File</label>
+                                        <div class="input-group">
+                                            <input id="clipFile" type="file" accept="audio/mpeg">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="form-group">
+                                        <label>Name</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" id="clipName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                                id="clipCancelButton">Cancel</button>
+                            <button type="button" class="btn btn-primary" id="clipSaveButton">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--clip modal end-->
+
+            <!--clips tab begin-->
+            <div class="card glass" style="margin-top: 10px;">
+                <div class="card-body">
+                    <p class="card-text">Upload small audio clips here (mp3) and play them later on your Sonos. The
+                        files are stored on your Homey.</p>
+                    <p id="clipInfos"></p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary float-right" id="createClipModalButton"
+                                style="width: 125px;" data-toggle="modal" data-target="#createClipModal">Add
+                                Clip</button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <ul class="list-group list-group-flush" id="clipCollection">
+                    </ul>
+                </div>
+            </div>
+            <!--clips tab end-->
+
+        </div>
+
+        <div class="tab-pane fade show" id="nav-cache" role="tabpanel" aria-labelledby="nav-cache-tab">
+
+            <!--cache tab begin-->
+            <div class="card glass" style="margin-top: 10px;">
+                <div class="card-body">
+                    <p class="card-text">Whenever you use text-to-speech an audio file gets generated and stored locally
+                        on your homey. If the app uses too much storage you can clear the audio cache.</p>
+                    <p id="cacheInfos"></p>
+                    <div class="row">
+                        <div class="col-sm">
+                            <button type="button" class="btn btn-primary float-right" id="clearCacheButton"
+                                style="width: 125px;">Clear Cache</button>
+                        </div>
+                    </div>
+                    <br>
+
+                    <ul class="list-group list-group-flush" id="cacheCollection">
+                    </ul>
+                </div>
+            </div>
+            <!--cache tab end-->
+
+        </div>
+
+        <div class="tab-pane fade" id="nav-about" role="tabpanel" aria-labelledby="nav-about-tab">
+
+            <!--about tab begin-->
+            <div class="card glass" style="margin-top: 10px;">
+                <img class="card-img-top" src="images/icon.svg"
+                    style="padding-left: 20%; padding-right: 20%; padding-top: 35px;padding-bottom: 15px;">
+                <div class="sk-cube-grid" style="margin:10% auto">
+                    <div class="sk-cube sk-cube1"></div>
+                    <div class="sk-cube sk-cube2"></div>
+                    <div class="sk-cube sk-cube3"></div>
+                    <div class="sk-cube sk-cube4"></div>
+                    <div class="sk-cube sk-cube5"></div>
+                    <div class="sk-cube sk-cube6"></div>
+                    <div class="sk-cube sk-cube7"></div>
+                    <div class="sk-cube sk-cube8"></div>
+                    <div class="sk-cube sk-cube9"></div>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">Sonos Say for Homey v4.0.0</h5>
+                    <h3 class="card-title">By ludvigaldrin (Ludvig Aldrin), XeroxQ (Arie J. Godschalk) and MadMonkey87
+                        (Philippe Wechsler)</h3>
+                </div>
+            </div>
+
+            <!--about tab end-->
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        function onHomeyReady(Homey) {
+
+            const clipFileLoading = document.getElementById('clipFileLoading');
+            const createClipModalButton = document.getElementById('createClipModalButton');
+            const clipFile = document.getElementById('clipFile');
+            const clipName = document.getElementById('clipName');
+            const clipSaveButton = document.getElementById('clipSaveButton');
+            const clipCancelButton = document.getElementById('clipCancelButton');
+            const clipCollection = document.getElementById('clipCollection');
+            const clearCacheButton = document.getElementById('clearCacheButton');
+
+            let selectedClip;
+
+            createClipModalButton.addEventListener('click', (e) => {
+                clipFileLoading.style.display = 'none';
+                clipFile.value = '';
+                clipName.value = '';
+                selectedClip = {};
+            });
+
+            clipSaveButton.addEventListener('click', (e) => {
+                clipFileLoading.style.display = 'block';
+
+                Homey.api('POST', 'clip', selectedClip, function (err, result) {
+                    if (err) {
+                        Homey.alert(err);
+                        clipFileLoading.style.display = 'none';
+                        return;
+                    }
+                    clipCancelButton.click();
+                    updateClips();
+                })
+            });
+
+            clipFile.addEventListener('change', onFileChanged);
+
+            function onFileChanged(e) {
+                const file = e.target.files[0];
+                var reader = new FileReader();
+                reader.onload = function (data) {
+                    setFileContent(file.name, data.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+
+            function setFileContent(filename, content) {
+                clipName.value = filename;
+                selectedClip.name = filename;
+                selectedClip.content = content;
+            }
+
+            if (Homey.isMock) {
+                Homey.alert('Warning: Homey is mocked only!!!');
+
+                Homey.addRoutes([
+                    {
+                        method: 'GET',
+                        path: '/clips',
+                        fn: function (args, callback) {
+                            return callback(null, [{ name: "clip1.mp3", size: 1234 }, { name: "clip2.mp3", size: 1234 }, { name: "clip3.mp3", size: 1234 }]);
+                        }
+                    },
+                ]);
+            }
+
+            clearCacheButton.addEventListener('click', (e) => {
+                Homey.confirm('Do you really want to clear the cache', 'warning', (e1, e2) => {
+                    if (e2 === true) {
+                        Homey.api('DELETE', '/cache', (err, result) => {
+                            if (err) return Homey.alert(err);
+                            updateCache();
+                        });
+                    }
+                });
+            });
+
+            function updateClips() {
+                Homey.api('GET', '/clips', (err, result) => {
+                    if (err) return Homey.alert(err);
+                    if (result) {
+                        let collectionMarkup = '';
+                        let totalSize = 0;
+                        for (var i = 0; i < result.length; i++) {
+                            collectionMarkup += `
+                                <li class="list-group-item transparent">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold; font-size: 18px; margin-top: 5px; margin-bottom:5px;">${result[i].name}</label>
+                                        <div class="btn-group float-right" style="margin-top: 25px; height: 42px;" >
+                                            <button type="button" class="btn btn-primary" onclick="downloadClip('${result[i].name}')" style="width: 42px"><span
+                                                class="fa fa-download"></span></button>
+                                            <button type="button" class="btn btn-secondary" onclick="removeClip('${result[i].name}')" style="width: 42px"><span
+                                                class="fa fa-trash"></span></button>
+                                        </div>
+                                        <small class="form-text text-muted">${bytesToSize(result[i].size)}</small>
+                                    </div>
+                                </li>
+                            `;
+                            totalSize += result[i].size;
+                        }
+                        document.getElementById('clipInfos').innerHTML = `${result.length} clips, ${bytesToSize(totalSize)}`;
+                        document.getElementById('clipCollection').innerHTML = collectionMarkup;
+                    }
+                });
+            }
+
+            function updateCache() {
+                Homey.api('GET', '/cache', (err, result) => {
+                    if (err) return Homey.alert(err);
+                    if (result) {
+                        let collectionMarkup = '';
+                        let totalSize = 0;
+                        for (var i = 0; i < result.length; i++) {
+                            collectionMarkup += `
+                                <li class="list-group-item transparent">
+                                    <div class="form-group">
+                                        <label style="font-weight: bold; font-size: 18px; margin-top: 5px; margin-bottom:5px;">${result[i].name}</label>
+                                        <div class="btn-group float-right" style="margin-top: 25px; height: 42px;" >
+                                            <button type="button" class="btn btn-primary" onclick="downloadCacheItem('${result[i].name}')" style="width: 42px"><span
+                                                class="fa fa-download"></span></button>
+                                            <button type="button" class="btn btn-secondary" onclick="removeCacheItem('${result[i].name}')" style="width: 42px"><span
+                                                class="fa fa-trash"></span></button>
+                                        </div>
+                                        <small class="form-text text-muted">${bytesToSize(result[i].size)}</small>
+                                    </div>
+                                </li>
+                            `;
+                            totalSize += result[i].size;
+                        }
+                        document.getElementById('cacheInfos').innerHTML = `${result.length} clips, ${bytesToSize(totalSize)}`;
+                        document.getElementById('cacheCollection').innerHTML = collectionMarkup;
+                    }
+                });
+            }
+
+            window.removeClip = function (e) {
+                Homey.confirm('Do you really want to remove this audio clip?', 'warning', (e1, e2) => {
+                    if (e2 === true) {
+                        Homey.api('DELETE', '/clip?name=' + e, (err, result) => {
+                            if (err) return Homey.alert(err);
+                            updateClips();
+                        });
+                    }
+                });
+            }
+
+            window.removeCacheItem = function (e) {
+                Homey.confirm('Do you really want to remove this cache item?', 'warning', (e1, e2) => {
+                    if (e2 === true) {
+                        Homey.api('DELETE', '/cacheItem?name=' + e, (err, result) => {
+                            if (err) return Homey.alert(err);
+                            updateCache();
+                        });
+                    }
+                });
+            }
+
+            window.downloadClip = function (e) {
+                Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/clip?name=' + e));
+            }
+
+            window.downloadCacheItem = function (e) {
+                Homey.openURL('https://' + window.location.hostname + '/app/com.svipler.athom.sonos-say/settings/download-proxy.html?src=' + encodeURIComponent('https://' + window.location.hostname + '/api/app/com.svipler.athom.sonos-say/cacheItem?name=' + e));
+            }
+
+            function bytesToSize(bytes) {
+                var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                if (bytes == 0) return '0 Byte';
+                var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+            }
+
+            Homey.ready();
+
+            updateClips();
+            updateCache();
+        }
+
+    </script>
+</body>
+
+</html>

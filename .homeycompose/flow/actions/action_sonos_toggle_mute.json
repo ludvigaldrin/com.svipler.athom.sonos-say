@@ -1,0 +1,21 @@
+{
+  "id": "action_sonos_toggle_mute",
+  "title": {
+    "en": "Toggle mute",
+    "de": "Stummschaltung umschalten"
+  },
+  "titleFormatted": {
+    "en": "Toggle mute on [[speaker]]",
+    "de": "Stummschaltung auf [[speaker]] umschalten"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    }
+  ]
+}

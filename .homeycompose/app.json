@@ -1,0 +1,90 @@
+{
+  "id": "com.svipler.athom.sonos-say",
+  "version": "4.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
+  "name": {
+    "en": "Sonos Say",
+    "de": "Sonos sag"
+  },
+  "brandColor": "#D8A158",
+  "description": {
+    "en": "Let's you broadcast text to your Sonos system and provides some other features the official app does not",
+    "de": "Ermöglicht das Abspielen von Textzeilen über Sonos Systeme und stellt erweiterte Funktionen gegenüber der offiziellen App bereit"
+  },
+  "category": [
+    "tools"
+  ],
+  "contributors": {
+    "developers": [
+      {
+        "name": "Ludvig Aldrin"
+      },
+      {
+        "name": "Philippe Wechsler"
+      },
+      {
+        "name": "Rune Moskvil Lyngås"
+      },
+      {
+        "name": "Arie J. Godschalk"
+      }
+    ],
+    "translators": [
+      {
+        "name": "🇩🇪 - Markus Mahr"
+      }
+    ]
+  },
+  "permissions": [],
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "author": {
+    "name": "Ludvig Aldrin",
+    "email": "ludvig.aldrin@gmail.com"
+  },
+  "api": {
+    "getClips": {
+      "method": "GET",
+      "path": "/clips",
+      "public": false
+    },
+    "getClip": {
+      "method": "GET",
+      "path": "/clip",
+      "public": true
+    },
+    "addClip": {
+      "method": "POST",
+      "path": "/clip",
+      "public": false
+    },
+    "removeClip": {
+      "method": "DELETE",
+      "path": "/clip",
+      "public": false
+    },
+    "getCache": {
+      "method": "GET",
+      "path": "/cache",
+      "public": false
+    },
+    "getCacheItem": {
+      "method": "GET",
+      "path": "/cacheItem",
+      "public": true
+    },
+    "removeCacheItem": {
+      "method": "DELETE",
+      "path": "/cacheItem",
+      "public": false
+    },
+    "clearCache": {
+      "method": "DELETE",
+      "path": "/cache",
+      "public": false
+    }
+  }
+}

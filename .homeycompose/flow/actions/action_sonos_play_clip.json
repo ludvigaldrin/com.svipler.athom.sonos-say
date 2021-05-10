@@ -1,0 +1,47 @@
+{
+  "id": "action_sonos_play_clip",
+  "title": {
+    "en": "Play a audio clip",
+    "de": "Spiele ein Audioclip"
+  },
+  "hint": {
+    "en": "Please go to the app configuration to upload a clip to homey first",
+    "de": "Bitte verwende die Appkonfiguration um Audioclips auf deinem Homey zu speichern"
+  },
+  "titleFormatted": {
+    "en": "Play [[clip]] on [[speaker]] with [[volume]] volume",
+    "de": "Spiele [[clip]] auf [[speaker]] mit [[volume]] Lautstärke"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    },
+    {
+      "type": "autocomplete",
+      "name": "clip",
+      "placeholder": {
+        "en": "Search for audio clips...",
+        "de": "Suche nach Audioclips..."
+      }
+    },
+    {
+      "type": "range",
+      "name": "volume",
+      "placeholder": {
+        "en": "volume",
+        "de": "Lautstärke"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "%",
+      "labelMultiplier": 1,
+      "labelDecimals": 0
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": "action_clear_cache",
+  "title": {
+    "en": "Clear Cache",
+    "de": "Cache leeren"
+  },
+  "hint": {
+    "en": "Whenever you use text-to-speech an audio file gets generated and stored locally on your homey. If the app uses too much storage you can clear the audio cache.",
+    "de": "Bei der Verwendung der App entstehen Audio Dateien die lokal auf dem Homey gespeichert werden. Falls die App zu viel Speicher belegt kannst du versuchen den Cache zu löschen."
+  }
+}

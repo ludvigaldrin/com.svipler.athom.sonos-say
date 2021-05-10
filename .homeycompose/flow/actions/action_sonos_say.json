@@ -1,0 +1,227 @@
+{
+  "id": "action_sonos_say",
+  "title": {
+    "en": "Text to Speech",
+    "de": "Text zu Sprache"
+  },
+  "titleFormatted": {
+    "en": "Say [[text]] on [[speaker]] with [[volume]] volume in [[language]]",
+    "de": "Sage [[text]] auf [[speaker]] mit [[volume]] Lautstärke in [[language]]"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    },
+    {
+      "type": "range",
+      "name": "volume",
+      "placeholder": {
+        "en": "volume",
+        "de": "Lautstärke"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "%",
+      "labelMultiplier": 1,
+      "labelDecimals": 0
+    },
+    {
+      "type": "dropdown",
+      "name": "language",
+      "values": [
+        {
+          "id": "ca-es",
+          "label": {
+            "en": "Catalan",
+            "de": "Katalanisch"
+          }
+        },
+        {
+          "id": "zh-cn",
+          "label": {
+            "en": "Chinese (China)",
+            "de": "Chinesisch (China)"
+          }
+        },
+        {
+          "id": "zh-hk",
+          "label": {
+            "en": "Chinese (Hong Kong)",
+            "de": "Chinesisch (Hong Kong)"
+          }
+        },
+        {
+          "id": "zh-tw",
+          "label": {
+            "en": "Chinese (Taiwan)",
+            "de": "Chinesisch (Taiwan)"
+          }
+        },
+        {
+          "id": "da-dk",
+          "label": {
+            "en": "Danish",
+            "de": "Dänisch"
+          }
+        },
+        {
+          "id": "nl-nl",
+          "label": {
+            "en": "Dutch",
+            "de": "Niederländisch"
+          }
+        },
+        {
+          "id": "en-au",
+          "label": {
+            "en": "English (Australia)",
+            "de": "Englisch (Australien)"
+          }
+        },
+        {
+          "id": "en-ca",
+          "label": {
+            "en": "English (Canada)",
+            "de": "Englisch (Kanada)"
+          }
+        },
+        {
+          "id": "en-gb",
+          "label": {
+            "en": "English (Great Britain)",
+            "de": "Englisch (England)"
+          }
+        },
+        {
+          "id": "en-in",
+          "label": {
+            "en": "English (India)",
+            "de": "Englisch (Indien)"
+          }
+        },
+        {
+          "id": "en-us",
+          "label": {
+            "en": "English (United States)",
+            "de": "Englisch (USA)"
+          }
+        },
+        {
+          "id": "fi-fi",
+          "label": {
+            "en": "Finnish",
+            "de": "Finnisch"
+          }
+        },
+        {
+          "id": "fr-ca",
+          "label": {
+            "en": "French (Canada)",
+            "de": "Französisch (Kanda)"
+          }
+        },
+        {
+          "id": "fr-fr",
+          "label": {
+            "en": "French (France)",
+            "de": "Französisch (Frankreich)"
+          }
+        },
+        {
+          "id": "de-de",
+          "label": {
+            "en": "German",
+            "de": "Deutsch"
+          }
+        },
+        {
+          "id": "it-it",
+          "label": {
+            "en": "Italian",
+            "de": "Italienisch"
+          }
+        },
+        {
+          "id": "ja-jp",
+          "label": {
+            "en": "Japanese",
+            "de": "Japanisch"
+          }
+        },
+        {
+          "id": "ko-kr",
+          "label": {
+            "en": "Korean",
+            "de": "Koreanisch"
+          }
+        },
+        {
+          "id": "nb-no",
+          "label": {
+            "en": "Norwegian",
+            "de": "Norwegisch"
+          }
+        },
+        {
+          "id": "pl-pl",
+          "label": {
+            "en": "Polish",
+            "de": "Polnisch"
+          }
+        },
+        {
+          "id": "pt-br",
+          "label": {
+            "en": "Portuguese (Brazil)",
+            "de": "Portugiesisch (Brasilien)"
+          }
+        },
+        {
+          "id": "pt-pt",
+          "label": {
+            "en": "Portuguese (Portugal)",
+            "de": "Portugiesisch (Portugal)"
+          }
+        },
+        {
+          "id": "ru-ru",
+          "label": {
+            "en": "Russian",
+            "de": "Russisch"
+          }
+        },
+        {
+          "id": "es-mx",
+          "label": {
+            "en": "Spanish (Mexico)",
+            "de": "Spanisch (Mexico)"
+          }
+        },
+        {
+          "id": "es-es",
+          "label": {
+            "en": "Spanish (Spain)",
+            "de": "Spanisch (Spain)"
+          }
+        },
+        {
+          "id": "sv-se",
+          "label": {
+            "en": "Swedish (Sweden)",
+            "de": "Schwedisch (Schweden)"
+          }
+        }
+      ]
+    },
+    {
+      "name": "text",
+      "type": "text"
+    }
+  ]
+}

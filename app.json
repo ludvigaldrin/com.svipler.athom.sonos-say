@@ -1,12 +1,14 @@
 {
+  "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.svipler.athom.sonos-say",
-  "version": "3.1.4",
-  "compatibility": ">=1.5.0",
-  "sdk": 2,
+  "version": "4.0.0",
+  "compatibility": ">=5.0.0",
+  "sdk": 3,
   "name": {
     "en": "Sonos Say",
     "de": "Sonos sag"
   },
+  "brandColor": "#D8A158",
   "description": {
     "en": "Let's you broadcast text to your Sonos system and provides some other features the official app does not",
     "de": "Ermöglicht das Abspielen von Textzeilen über Sonos Systeme und stellt erweiterte Funktionen gegenüber der offiziellen App bereit"
@@ -20,7 +22,7 @@
         "name": "Ludvig Aldrin"
       },
       {
-        "name": "MadMonkey87"
+        "name": "Philippe Wechsler"
       },
       {
         "name": "Rune Moskvil Lyngås"
@@ -30,9 +32,9 @@
       }
     ],
     "translators": [
-        {
-            "name": "🇩🇪 - Markus Mahr"
-        }
+      {
+        "name": "🇩🇪 - Markus Mahr"
+      }
     ]
   },
   "permissions": [],
@@ -44,33 +46,70 @@
     "name": "Ludvig Aldrin",
     "email": "ludvig.aldrin@gmail.com"
   },
+  "api": {
+    "getClips": {
+      "method": "GET",
+      "path": "/clips",
+      "public": false
+    },
+    "getClip": {
+      "method": "GET",
+      "path": "/clip",
+      "public": true
+    },
+    "addClip": {
+      "method": "POST",
+      "path": "/clip",
+      "public": false
+    },
+    "removeClip": {
+      "method": "DELETE",
+      "path": "/clip",
+      "public": false
+    },
+    "getCache": {
+      "method": "GET",
+      "path": "/cache",
+      "public": false
+    },
+    "getCacheItem": {
+      "method": "GET",
+      "path": "/cacheItem",
+      "public": true
+    },
+    "removeCacheItem": {
+      "method": "DELETE",
+      "path": "/cacheItem",
+      "public": false
+    },
+    "clearCache": {
+      "method": "DELETE",
+      "path": "/cache",
+      "public": false
+    }
+  },
   "flow": {
     "actions": [
       {
-        "id": "action_sonos_lock_volume",
+        "id": "action_clear_cache",
         "title": {
-          "en": "Lock all volumes",
-          "de": "festsetzen aller Lautstärken"
+          "en": "Clear Cache",
+          "de": "Cache leeren"
         },
-        "args": []
+        "hint": {
+          "en": "Whenever you use text-to-speech an audio file gets generated and stored locally on your homey. If the app uses too much storage you can clear the audio cache.",
+          "de": "Bei der Verwendung der App entstehen Audio Dateien die lokal auf dem Homey gespeichert werden. Falls die App zu viel Speicher belegt kannst du versuchen den Cache zu löschen."
+        }
       },
       {
-        "id": "action_sonos_unlock_volume",
+        "id": "action_sonos_clear_queue",
         "title": {
-          "en": "Unlock all volumes",
-          "de": "Freigeben aller Lautstärken"
-        },
-        "args": []
-      },
-      {
-        "id": "action_sonos_set_repeat_mode",
-        "title": {
-          "en": "Set repeat mode",
-          "de": "Wiederholungsmodus einstellen"
+          "en": "Clear Queue",
+          "de": "Warteschlange leeren"
         },
         "titleFormatted": {
-          "en": "Set repeat mode to [[repeatmode]] on [[speaker]]",
-          "de": "Wiederholmodus [[repeatmode]] auf [[speaker]] einstellen"
+          "en": "Clear the Queue on [[speaker]]",
+          "de": "Warteschlange von [[speaker]] löschen"
         },
         "args": [
           {
@@ -78,149 +117,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
-            }
-          },
-          {
-            "type": "dropdown",
-            "name": "repeatmode",
-            "values": [
-              {
-                "id": "none",
-                "label": {
-                  "en": "Disabled",
-                  "de": "Deaktiviert"
-                }
-              },
-              {
-                "id": "all",
-                "label": {
-                  "en": "Repeat All",
-                  "de": "Alle wiederholen"
-                }
-              },
-              {
-                "id": "one",
-                "label": {
-                  "en": "Repeat One",
-                  "de": "eins wiederholen"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "id": "action_sonos_toggle_mute",
-        "title": {
-          "en": "Toggle mute",
-          "de": "Stummschaltung umschalten"
-        },
-        "titleFormatted": {
-          "en": "Toggle mute on [[speaker]]",
-          "de": "Stummschaltung auf [[speaker]] umschalten"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "speaker",
-            "placeholder": {
-              "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
-            }
-          }
-        ]
-      },
-      {
-        "id": "action_sonos_set_sleepmode",
-        "title": {
-          "en": "Set sleepmode",
-          "de": "Schlummermodus einstellen"
-        },
-        "titleFormatted": {
-          "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]",
-          "de": "Schlummermodus nach [[timeout]] sekunden auf [[speaker]] einstellen"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "speaker",
-            "placeholder": {
-              "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
-            }
-          },
-          {
-            "type": "number",
-            "name": "timeout",
-            "placeholder": {
-              "en": "Duration in seconds or 0 to disable",
-              "de": "Dauer in sekunden oder 0 zum deaktivieren"
-            },
-            "min": 0,
-            "step": 1
-          }
-        ]
-      },
-      {
-        "id": "action_sonos_enable_shuffle",
-        "title": {
-          "en": "Enable shuffle",
-          "de": "Zufallswiedergabe einschalten"
-        },
-        "titleFormatted": {
-          "en": "Enable shuffle on [[speaker]]",
-          "de": "Zufallswiedergabe für [[speaker]] einschalten"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "speaker",
-            "placeholder": {
-              "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
-            }
-          }
-        ]
-      },
-      {
-        "id": "action_sonos_disable_shuffle",
-        "title": {
-          "en": "Disable shuffle",
-          "de": "Zufallswiedergabe ausschalten"
-        },
-        "titleFormatted": {
-          "en": "Disable shuffle on [[speaker]]",
-          "de": "Zufallswiedergabe für [[speaker]] ausschalten"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "speaker",
-            "placeholder": {
-              "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
-            }
-          }
-        ]
-      },
-      {
-        "id": "action_sonos_enable_crossfade",
-        "title": {
-          "en": "Enable crossfade",
-          "de": "Überblenden einschalten"
-        },
-        "titleFormatted": {
-          "en": "Enable crossfade on [[speaker]]",
-          "de": "Überblenden für [[speaker]] einschalten"
-        },
-        "args": [
-          {
-            "type": "autocomplete",
-            "name": "speaker",
-            "placeholder": {
-              "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
@@ -241,8 +138,165 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_disable_shuffle",
+        "title": {
+          "en": "Disable shuffle",
+          "de": "Zufallswiedergabe ausschalten"
+        },
+        "titleFormatted": {
+          "en": "Disable shuffle on [[speaker]]",
+          "de": "Zufallswiedergabe für [[speaker]] ausschalten"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_enable_crossfade",
+        "title": {
+          "en": "Enable crossfade",
+          "de": "Überblenden einschalten"
+        },
+        "titleFormatted": {
+          "en": "Enable crossfade on [[speaker]]",
+          "de": "Überblenden für [[speaker]] einschalten"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_enable_shuffle",
+        "title": {
+          "en": "Enable shuffle",
+          "de": "Zufallswiedergabe einschalten"
+        },
+        "titleFormatted": {
+          "en": "Enable shuffle on [[speaker]]",
+          "de": "Zufallswiedergabe für [[speaker]] einschalten"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_lock_volume",
+        "title": {
+          "en": "Lock all volumes",
+          "de": "Fixieren aller Lautstärken"
+        },
+        "args": []
+      },
+      {
+        "id": "action_sonos_play_clip",
+        "title": {
+          "en": "Play a audio clip",
+          "de": "Spiele ein Audioclip"
+        },
+        "hint": {
+          "en": "Please go to the app configuration to upload a clip to homey first",
+          "de": "Bitte verwende die Appkonfiguration um Audioclips auf deinem Homey zu speichern"
+        },
+        "titleFormatted": {
+          "en": "Play [[clip]] on [[speaker]] with [[volume]] volume",
+          "de": "Spiele [[clip]] auf [[speaker]] mit [[volume]] Lautstärke"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          },
+          {
+            "type": "autocomplete",
+            "name": "clip",
+            "placeholder": {
+              "en": "Search for audio clips...",
+              "de": "Suche nach Audioclips..."
+            }
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "placeholder": {
+              "en": "volume",
+              "de": "Lautstärke"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "%",
+            "labelMultiplier": 1,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_play_random_clip",
+        "title": {
+          "en": "Play a random audio clip",
+          "de": "Spiele einen zufälligen Audioclip"
+        },
+        "hint": {
+          "en": "Please go to the app configuration to upload a clip to homey first",
+          "de": "Bitte verwende die Appkonfiguration um Audioclips auf deinem Homey zu speichern"
+        },
+        "titleFormatted": {
+          "en": "Play a random clip on [[speaker]] with [[volume]] volume",
+          "de": "Spiele einen zufälligen clip auf [[speaker]] mit [[volume]] Lautstärke"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          },
+          {
+            "type": "range",
+            "name": "volume",
+            "placeholder": {
+              "en": "volume",
+              "de": "Lautstärke"
+            },
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "label": "%",
+            "labelMultiplier": 1,
+            "labelDecimals": 0
           }
         ]
       },
@@ -253,8 +307,8 @@
           "de": "Text zu Sprache"
         },
         "titleFormatted": {
-          "en": "Say [[text]] on [[speaker]], [[volume]] volume in [[language]]",
-          "de": "Sage [[text]] auf [[speaker]], mit [[volume]] Lautstärke in [[language]]"
+          "en": "Say [[text]] on [[speaker]] with [[volume]] volume in [[language]]",
+          "de": "Sage [[text]] auf [[speaker]] mit [[volume]] Lautstärke in [[language]]"
         },
         "args": [
           {
@@ -262,7 +316,7 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           },
           {
@@ -270,7 +324,7 @@
             "name": "volume",
             "placeholder": {
               "en": "volume",
-              "de": Lautstärke"
+              "de": "Lautstärke"
             },
             "min": 0,
             "max": 100,
@@ -343,7 +397,7 @@
                 "id": "en-gb",
                 "label": {
                   "en": "English (Great Britain)",
-                  "de": "Englisch (England)
+                  "de": "Englisch (England)"
                 }
               },
               {
@@ -357,7 +411,7 @@
                 "id": "en-us",
                 "label": {
                   "en": "English (United States)",
-                  "en": "Englisch (USA)"
+                  "de": "Englisch (USA)"
                 }
               },
               {
@@ -371,14 +425,14 @@
                 "id": "fr-ca",
                 "label": {
                   "en": "French (Canada)",
-                  "de": "Französich (Kanda)"
+                  "de": "Französisch (Kanda)"
                 }
               },
               {
                 "id": "fr-fr",
                 "label": {
                   "en": "French (France)",
-                  "de": "Französich (Frankreich)"
+                  "de": "Französisch (Frankreich)"
                 }
               },
               {
@@ -441,7 +495,7 @@
                 "id": "ru-ru",
                 "label": {
                   "en": "Russian",
-                  "de": "Russich"
+                  "de": "Russisch"
                 }
               },
               {
@@ -480,8 +534,8 @@
           "de": "Durchsage senden (url)"
         },
         "titleFormatted": {
-          "en": "Send [[url]](URL) as announcement on [[speaker]], [[volume]] volume, [[durationAudio]] ms duration",
-          "de": "Sende [[url]](URL) als Durchsage an [[speaker]], mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
+          "en": "Send [[url]](URL) as announcement on [[speaker]] with [[volume]] volume, [[durationAudio]] ms duration",
+          "de": "Sende [[url]](URL) als Durchsage an [[speaker]] mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
         },
         "args": [
           {
@@ -489,13 +543,13 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
             }
           },
           {
             "type": "range",
             "name": "volume",
-            "placeholder": {
+            "hint": {
               "en": "volume",
               "de": "Lautstärke"
             },
@@ -515,13 +569,13 @@
             "type": "text",
             "placeholder": {
               "en": "Url",
-              "de": Url"
+              "de": "Url"
             },
-            "hint":"Url"
+            "hint": "Url"
           },
           {
             "type": "number",
-            "name": "durationAudio",            
+            "name": "durationAudio",
             "placeholder": {
               "en": "Duration",
               "de": "Laufzeit"
@@ -530,14 +584,14 @@
         ]
       },
       {
-        "id": "action_sonos_clear_queue",
+        "id": "action_sonos_set_repeat_mode",
         "title": {
-          "en": "Clear Queue",
-          "de": "Warteschlange löschen"
+          "en": "Set repeat mode",
+          "de": "Wiederholungsmodus einstellen"
         },
         "titleFormatted": {
-          "en": "Clear the Queue on [[speaker]]",
-          "de": "Warteschlange von [[speaker]] löschen"
+          "en": "Set repeat mode to [[repeatmode]] on [[speaker]]",
+          "de": "Wiederholmodus [[repeatmode]] auf [[speaker]] einstellen"
         },
         "args": [
           {
@@ -545,11 +599,98 @@
             "name": "speaker",
             "placeholder": {
               "en": "Search for speakers...",
-              "de": "Suche nach Lautsprächern..."
+              "de": "Suche nach Lautsprechern..."
+            }
+          },
+          {
+            "type": "dropdown",
+            "name": "repeatmode",
+            "values": [
+              {
+                "id": "none",
+                "label": {
+                  "en": "Disabled",
+                  "de": "Deaktiviert"
+                }
+              },
+              {
+                "id": "all",
+                "label": {
+                  "en": "Repeat All",
+                  "de": "Alle wiederholen"
+                }
+              },
+              {
+                "id": "one",
+                "label": {
+                  "en": "Repeat One",
+                  "de": "Eins wiederholen"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_set_sleepmode",
+        "title": {
+          "en": "Set sleepmode",
+          "de": "Schlummermodus einstellen"
+        },
+        "titleFormatted": {
+          "en": "Set sleepmode to [[timeout]] seconds on [[speaker]]",
+          "de": "Schlummermodus nach [[timeout]] Sekunden auf [[speaker]] einstellen"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
+            }
+          },
+          {
+            "type": "number",
+            "name": "timeout",
+            "placeholder": {
+              "en": "Duration in seconds or 0 to disable",
+              "de": "Dauer in sekunden oder 0 zum deaktivieren"
+            },
+            "min": 0,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "id": "action_sonos_toggle_mute",
+        "title": {
+          "en": "Toggle mute",
+          "de": "Stummschaltung umschalten"
+        },
+        "titleFormatted": {
+          "en": "Toggle mute on [[speaker]]",
+          "de": "Stummschaltung auf [[speaker]] umschalten"
+        },
+        "args": [
+          {
+            "type": "autocomplete",
+            "name": "speaker",
+            "placeholder": {
+              "en": "Search for speakers...",
+              "de": "Suche nach Lautsprechern..."
             }
           }
         ]
+      },
+      {
+        "id": "action_sonos_unlock_volume",
+        "title": {
+          "en": "Unlock all volumes",
+          "de": "Freigeben aller Lautstärken"
+        },
+        "args": []
       }
     ]
-	}
+  }
 }

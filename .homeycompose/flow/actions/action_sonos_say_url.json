@@ -1,0 +1,56 @@
+{
+  "id": "action_sonos_say_url",
+  "title": {
+    "en": "Send announcement (url)",
+    "de": "Durchsage senden (url)"
+  },
+  "titleFormatted": {
+    "en": "Send [[url]](URL) as announcement on [[speaker]] with [[volume]] volume, [[durationAudio]] ms duration",
+    "de": "Sende [[url]](URL) als Durchsage an [[speaker]] mit Lautstärke [[volume]] und [[durationAudio]] ms Laufzeit"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    },
+    {
+      "type": "range",
+      "name": "volume",
+      "hint": {
+        "en": "volume",
+        "de": "Lautstärke"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "label": "%",
+      "labelMultiplier": 1,
+      "labelDecimals": 0,
+      "title": {
+        "en": "Volume",
+        "de": "Lautstärke"
+      }
+    },
+    {
+      "name": "url",
+      "type": "text",
+      "placeholder": {
+        "en": "Url",
+        "de": "Url"
+      },
+      "hint": "Url"
+    },
+    {
+      "type": "number",
+      "name": "durationAudio",
+      "placeholder": {
+        "en": "Duration",
+        "de": "Laufzeit"
+      }
+    }
+  ]
+}

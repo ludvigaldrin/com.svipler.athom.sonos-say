@@ -2,6 +2,20 @@
 
 Let's you broadcast text to your Sonos system
 
+[![current version](https://img.shields.io/badge/version-4.0.0-<COLOR>.svg)](https://shields.io/)
+
+V4.0.0
+* Fixed app manifest
+* Fixed german translations
+* Fix s.t searching in the speaker dropdowns work
+* Sort speakers in all dropdowns
+* Do not setup an entire http server and instead use the library directly which is more efficient and less error prone - and works with sdk>=3
+* Removed unnecessary files
+* Upgraded sdk to v3 to be ready for the future
+* Flow card to delete the cache if necessary
+* App config to upload audio clips to homey
+* Flow card to play (random) audio clips
+
 V3.1.4
 * Reduced filesize by removing some unwanted options
 
@@ -44,5 +58,5 @@ V1.0.0
 Special thanks to Arie J. Godschalk who made Version 3 serverless
 https://github.com/XeroxQ
 
-Special thanks to MadMonkey87 who made most of Version 2
+Special thanks to MadMonkey87 who made most of Version 2 and 4
 https://github.com/MadMonkey87/

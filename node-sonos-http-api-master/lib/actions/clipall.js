@@ -19,7 +19,7 @@ function playClipOnAll(player, values) {
 
   return fileDuration(path.join(LOCAL_PATH_LOCATION, clipFileName))
       .then((duration) => {
-        return allPlayerAnnouncement(player.system, `http://${player.system.localEndpoint}:${port}/clips/${clipFileName}`, announceVolume, duration);
+        return allPlayerAnnouncement(player.system, `http://${player.system.localEndpoint}:${port}/clips/${encodeURI(clipFileName)}`, announceVolume, duration);
       });
 }
 

@@ -1,0 +1,48 @@
+{
+  "id": "action_sonos_set_repeat_mode",
+  "title": {
+    "en": "Set repeat mode",
+    "de": "Wiederholungsmodus einstellen"
+  },
+  "titleFormatted": {
+    "en": "Set repeat mode to [[repeatmode]] on [[speaker]]",
+    "de": "Wiederholmodus [[repeatmode]] auf [[speaker]] einstellen"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    },
+    {
+      "type": "dropdown",
+      "name": "repeatmode",
+      "values": [
+        {
+          "id": "none",
+          "label": {
+            "en": "Disabled",
+            "de": "Deaktiviert"
+          }
+        },
+        {
+          "id": "all",
+          "label": {
+            "en": "Repeat All",
+            "de": "Alle wiederholen"
+          }
+        },
+        {
+          "id": "one",
+          "label": {
+            "en": "Repeat One",
+            "de": "Eins wiederholen"
+          }
+        }
+      ]
+    }
+  ]
+}

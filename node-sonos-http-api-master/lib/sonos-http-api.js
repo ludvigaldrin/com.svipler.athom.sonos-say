@@ -46,28 +46,24 @@ function HttpAPI(discovery, settings) {
     registerAction(this);
   });
 
-  this.requestHandler = function (req, res) {
-    if (req.url === '/favicon.ico') {
-      res.end();
-      return;
-    }
-
+  this.fakeRequest = function (url, callback) {
     if (discovery.zones.length === 0) {
       const msg = 'No system has yet been discovered. Please see https://github.com/jishi/node-sonos-http-api/issues/77 if it doesn\'t resolve itself in a few seconds.';
       logger.error(msg);
-      sendResponse(500, { status: 'error', error: msg });
+      callback({ status: 'error', error: msg }, null);
       return;
     }
 
-    const params = req.url.substring(1).split('/');
-    
+    const params = url.substring(1).split('/');
+
     // parse decode player name considering decode errors
     let player;
     try {
       player = discovery.getPlayer(decodeURIComponent(params[0]));
     } catch (error) {
       logger.error(`Unable to parse supplied URI component (${params[0]})`, error);
-      return sendResponse(500, { status: 'error', error: error.message, stack: error.stack });
+      callback({ status: 'error', error: error.message, stack: error.stack }, null);
+      return;
     }
 
     const opt = {};
@@ -81,31 +77,22 @@ function HttpAPI(discovery, settings) {
       opt.values = params.splice(1);
     }
 
-    function sendResponse(code, body) {
-      var jsonResponse = JSON.stringify(body);
-      res.statusCode = code;
-      res.setHeader('Content-Length', Buffer.byteLength(jsonResponse));
-      res.setHeader('Content-Type', 'application/json;charset=utf-8');
-      res.write(Buffer.from(jsonResponse));
-      res.end();
-    }
-
     opt.player = player;
     Promise.resolve(handleAction(opt))
-    .then((response) => {
-      if (!response || response.constructor.name === 'IncomingMessage') {
-        response = { status: 'success' };
-      } else if (Array.isArray(response) && response.length > 0 && response[0].constructor.name === 'IncomingMessage') {
-        response = { status: 'success' };
-      }
-
-      sendResponse(200, response);
-    }).catch((error) => {
-      logger.error(error);
-      sendResponse(500, { status: 'error', error: error.message, stack: error.stack });
-    });
+      .then((response) => {
+        if (!response || response.constructor.name === 'IncomingMessage') {
+          response = { status: 'success' };
+        } else if (Array.isArray(response) && response.length > 0 && response[0].constructor.name === 'IncomingMessage') {
+          response = { status: 'success' };
+        }
+        callback(null, response);
+        return;
+      }).catch((error) => {
+        logger.error(error);
+        callback({ status: 'error', error: error.message, stack: error.stack }, null);
+        return;
+      });
   };
-
 
   function handleAction(options) {
     var player = options.player;
@@ -135,9 +122,9 @@ function HttpAPI(discovery, settings) {
     const body = Buffer.from(jsonBody, 'utf8');
 
     var headers = {
-        'Content-Type': 'application/json',
-        'Content-Length': body.length
-      }
+      'Content-Type': 'application/json',
+      'Content-Length': body.length
+    }
     if (settings.webhookHeaderName && settings.webhookHeaderContents) {
       headers[settings.webhookHeaderName] = settings.webhookHeaderContents;
     }
@@ -148,10 +135,10 @@ function HttpAPI(discovery, settings) {
       headers: headers,
       body
     })
-    .catch(function (err) {
-      logger.error('Could not reach webhook endpoint', settings.webhook, 'for some reason. Verify that the receiving end is up and running.');
-      logger.error(err);
-    })
+      .catch(function (err) {
+        logger.error('Could not reach webhook endpoint', settings.webhook, 'for some reason. Verify that the receiving end is up and running.');
+        logger.error(err);
+      })
   }
 
 }

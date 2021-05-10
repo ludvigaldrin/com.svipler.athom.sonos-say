@@ -1,0 +1,21 @@
+{
+  "id": "action_sonos_clear_queue",
+  "title": {
+    "en": "Clear Queue",
+    "de": "Warteschlange leeren"
+  },
+  "titleFormatted": {
+    "en": "Clear the Queue on [[speaker]]",
+    "de": "Warteschlange von [[speaker]] löschen"
+  },
+  "args": [
+    {
+      "type": "autocomplete",
+      "name": "speaker",
+      "placeholder": {
+        "en": "Search for speakers...",
+        "de": "Suche nach Lautsprechern..."
+      }
+    }
+  ]
+}
