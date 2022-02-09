@@ -2,6 +2,10 @@
 
 Let's you broadcast text to your Sonos system
 
+V3.1.5
+* Added German translation
+* Fix for Say all
+
 V3.1.4
 * Reduced filesize by removing some unwanted options
 

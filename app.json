@@ -1,6 +1,6 @@
 {
   "id": "com.svipler.athom.sonos-say",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "compatibility": ">=1.5.0",
   "sdk": 2,
   "name": {
@@ -270,7 +270,7 @@
             "name": "volume",
             "placeholder": {
               "en": "volume",
-              "de": Lautstärke"
+              "de": "Lautstärke"
             },
             "min": 0,
             "max": 100,
@@ -343,7 +343,7 @@
                 "id": "en-gb",
                 "label": {
                   "en": "English (Great Britain)",
-                  "de": "Englisch (England)
+                  "de": "Englisch (England)"
                 }
               },
               {
@@ -515,7 +515,7 @@
             "type": "text",
             "placeholder": {
               "en": "Url",
-              "de": Url"
+              "de": "Url"
             },
             "hint":"Url"
           },

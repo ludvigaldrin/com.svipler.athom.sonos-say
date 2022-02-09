@@ -1,6 +1,6 @@
 {
   "name": "com.svipler.athom.sonos-say",
-  "version": "3.1.4",
+  "version": "3.1.5",
   "description": "Let's you broadcast text to your Sonos system",
   "main": "app.js",
   "scripts": {
